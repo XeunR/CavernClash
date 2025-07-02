@@ -1,0 +1,21 @@
+T1 Critical Refinement Stone|Refine|Normal|5|Increases CRIT RATE by 5%.
+T2 Critical Refinement Stone|Refine|Rare|5|Increases CRIT RATE by 10%.
+T3 Critical Refinement Stone|Refine|SuperRare|5|Increases CRIT RATE by 15%.
+T4 Critical Refinement Stone|Refine|Legendary|5|Increases CRIT RATE by 20%.
+T1 Damage Refinement Stone|Refine|Normal|5|Increases ATK by 5%.
+T2 Damage Refinement Stone|Refine|Rare|5|Increases ATK by 10%.
+T3 Damage Refinement Stone|Refine|SuperRare|5|Increases ATK by 15%.
+T4 Damage Refinement Stone|Refine|Legendary|5|Increases ATK by 20%.
+T1 Health Refinement Stone|Refine|Normal|5|Increases HP by 5%.
+T2 Health Refinement Stone|Refine|Rare|5|Increases HP by 10%.
+T3 Health Refinement Stone|Refine|SuperRare|5|Increases HP by 15%.
+T4 Health Refinement Stone|Refine|Legendary|5|Increases HP by 20%.
+T1 Swiftness Refinement Stone|Refine|Normal|5|Increases SPEED by 5.
+T2 Swiftness Refinement Stone|Refine|Rare|5|Increases SPEED by 10.
+T3 Swiftness Refinement Stone|Refine|SuperRare|5|Increases SPEED by 15.
+T4 Swiftness Refinement Stone|Refine|Legendary|5|Increases SPEED by 20.
+Character Lootbox|Lootbox|Rare|0|Open to receive a new character.
+Weapon Lootbox|Lootbox|Rare|0|Open to receive a random weapon.
+Armour Lootbox|Lootbox|Rare|0|Open to receive a random armour.
+Item Lootbox|Lootbox|Rare|0|Open to receive a random item.
+Coin Lootbox|Lootbox|Normal|0|Open to receive a random number of coins.

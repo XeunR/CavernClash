@@ -1,0 +1,40 @@
+Stick|Weapon|Normal|5|0|Just a stick.
+Cloth Robe|Armour|Normal|10|0|Just some basic clothes.
+Stone Rod|Weapon|Normal|8|0|Better than a wooden stick.
+Plate Armour|Armour|Normal|16|0|Heavy, but it gets the job done.
+Modern Sword|Weapon|Rare|15|2|An actually decent weapon.
+Modern Armour|Armour|Rare|30|2|An actually decent armour.
+Gem Studded Staff|Weapon|Normal|12|3|A very shiny wand.
+Gem Studded Robe|Armour|Normal|24|3|So bright it lights up the caves.
+Gemstone Sword|Weapon|Normal|20|5|Completely made of gemstones.
+Gemstone Armour|Armour|Normal|40|5|This would sell for so much.
+Gemologist's Calipers|Weapon|Rare|30|5|Why is this a weapon???
+Gemologist's Exploring Gear|Armour|Rare|60|5|For the ultimate gem enthusiast.
+Miner's Pickaxe|Weapon|Normal|35|7|Does a lot of damage because it's sharp.
+Miner's Coveralls|Armour|Normal|70|7|Perfect for these underground situations.
+Diamond Wand|Weapon|SuperRare|50|7|So much power...
+Hazmat Suit|Armour|SuperRare|100|7|Don't think it was intended for this...
+Gloamsteel Dagger|Weapon|Common|40|8|Gloamsteel is very abundant in these mines.
+Gloamsteel Plate|Armour|Common|80|8|Gloamsteel is very abundant in these mines.
+Mole's Claws|Weapon|Rare|50|9|Well that's not very nice...
+Mushroom Armour|Armour|Rare|100|9|The mushrooms here sure are strong.
+Lanternblade|Weapon|Common|55|10|Emits light while you slice. Smart!
+Moleskin Cloak|Armour|Common|110|10|Extremely durable in these narrow tunnels.
+Adamant Axe|Weapon|Rare|60|12|Forged from an incredibly rare ore.
+Adamant Chestplate|Armour|Rare|120|12|Forged from an incredibly rare ore.
+Infinitely Sharp Rock|Weapon|Legendary|90|12|Cuts anything to the touch.
+Lodestone Mail|Armour|Legendary|180|12|Very heavy to wear, but effective.
+Serpent Bow|Weapon|Rare|75|13|Made from the skin of very fast tunnelers.
+Webscale Robe|Armour|Rare|150|13|The webs have been hardening for many centuries.
+Echohammer|Weapon|SuperRare|85|14|Resonates against the walls of the cavern.
+Mythril Armour|Armour|SuperRare|170|14|An ore so rare, no one knows of its existence.
+Stinger|Weapon|Rare|100|15|Snatched off a hornet.
+Moss Covered Wraps|Armour|Rare|200|15|Thick and soft.
+Venom Dagger|Weapon|Normal|90|16|Don't touch the wrong part!
+Venom Chestplate|Armour|Normal|180|16|Murky black liquid circulates inside.
+Vine Whip|Weapon|SuperRare|110|18|The whips resonance throughout the cavern.
+Scalemail|Armour|SuperRare|220|18|Reinforced with the scales of jungle pythons.
+Runestone Wand|Weapon|Rare|115|20|Etched with forgotten glyphs.
+Veiled Mask|Armour|Rare|230|20|Filters the toxic air.
+Draughtbane|Weapon|Legendary|150|20|Controls the flow of wind.
+Phantomsong|Armour|Legendary|300|20|The voices of the jungle...

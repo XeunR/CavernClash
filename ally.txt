@@ -1,0 +1,13 @@
+Adventurer|DamageSingle|50|15|100|Hit|100|Deals 100% of Adventurer's ATK to 1 enemy.|With All Our Might|Increases CRIT by 20%, then deals 200% of Adventurer's ATK to 1 enemy.
+Mercenary|DamageSingle|100|20|100|Assault|100|Deals 100% of Mercenary's ATK to 1 enemy.|Motivated Charge|Deals 200% of Mercenary's ATK to 1 enemy.
+Fire Wizard|DamageMulti|80|25|100|Fireball|80|Deals 80% of Fire Wizard's ATK to 1 enemy.|Meteor Shower|Deals 120% of Fire Wizard's ATK to all enemies, with a 50% chance to inflict burn.
+Ice Wizard|DamageMulti|80|25|100|Frost Beam|80|Deals 80% of Ice Wizard's ATK to 1 enemy.|Icicle Shower|Deals 50% of Ice Wizard's ATK to all enemies, with a 25% chance to inflict freeze.
+Knight|Support|150|10|110|Spear Thrust|150|Deals 150% of Knight's ATK to 1 enemy.|Team Defence|Increases HP and base HP of entire team by 50 HP.
+Alchemist|Support|50|35|120|Throw Potion|30|Deals 30% of Alchemist's ATK to 1 enemy.|Intense Energy Potion|Increases CRIT, ATK and SPEED of 1 ally by 15%, lasting 3 turns.
+Ninja|DamageSingle|70|20|125|Dagger|90|Deals 90% of Ninja's ATK to 1 enemy.|Sneak|Increases SPEED by 20, then deals 150% of Ninja's ATK to 1 enemy.
+Wumpus|DamageSingle|150|20|20|Please Don't Basic Attack|100|Deals 100% of Wumpus' ATK to 1 enemy.|In Honour of Harry|Swallows 1 enemy, dealing 1000% of Wumpus' ATK.
+Demolitionist|DamageMulti|80|20|100|Grenade|100|Deals 100% of Demolitionist's ATK to 1 enemy.|3 Big Booms|Deals 175% of Demolitionist's ATK to all enemies.
+Commander|Support|120|10|110|My Business|30|Deals 30% of Commander's ATK to 1 enemy.|Depart And Defend|Increases CRIT and ATK of 1 ally by 30% and 50%. It is immediately their turn.
+Nurse|Healer|150|10|80|Sharp Equipment|20|Deals 20% of Nurse's ATK to 1 enemy.|Heal|Heals 1 ally 25% of Nurse's base HP, removes ally's negative effects.
+Sorcerer|DamageSingle|80|20|110|Blowpipe|100|Deals 100% of Sorcerer's ATK to 1 enemy.|Dark Magic|Deals 70% of Sorcerer's ATK to 1 enemy, and applies some random negative effects.
+Cleric|Support|120|20|90|Convert|30|Deals 30% of Cleric's ATK to 1 enemy.|Holy Teachings|Heals 1 ally 50 HP, increases their ATK and SPEED by 60% and 10%, lasting 2 turns.
