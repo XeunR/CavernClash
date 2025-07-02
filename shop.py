@@ -104,8 +104,8 @@ class Shop:
             return buying_key, 0, False
         price = amount * buying_value[1]
         if coins >= price:
-            quantity_left = buying_value[1] - amount
-            buying_value[1] = quantity_left
+            quantity_left = buying_value[0] - amount
+            buying_value[0] = quantity_left
             self.selling[buying_key] = buying_value
             print("Transaction success!")
             print(f"Bought {buying_key} x{amount} for {price} coins each.")
