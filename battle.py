@@ -58,7 +58,10 @@ class BattleManager:
         return actions
 
     def check_death(self):
+        # Reset negative speeds
         for alive_check in self.player_team:
+            if alive_check.speed < 0:
+                alive_check.speed = 0
             if alive_check.hp <= 0:
                 print(f"{alive_check.name} is dead!")
                 self.characters.remove(alive_check)
@@ -214,10 +217,10 @@ class BattleManager:
                         time.sleep(1)
                         print("----------------------------------------------------------------------------------")
                         for friend in self.player_team:
-                            friend.base_hp += 50
-                            friend.hp += 50
+                            friend.base_hp += 25
+                            friend.hp += 25
                         print(f"{character.name} used {character.skill_name} on your team.")
-                        print("Increased HP and base HP of entire team by 50 HP.")
+                        print("Increased HP and base HP of entire team by 25 HP.")
 
                     # Alchemist
                     elif character.skill_name == "Intense Energy Potion":
@@ -396,10 +399,11 @@ class BattleManager:
                         print(f"Increased ATK of {friend.name} by 60% and SPEED by 10% for 2 turns.")
 
                     # End unique skills of each character
-                    character.base_speed -= 5
-                    character.speed -= 5
+                    decreased_speed = round(character.base_speed / 20)
+                    character.base_speed -= decreased_speed
+                    character.speed -= decreased_speed
                     time.sleep(1)
-                    print(f"Due to skill usage, {character.name}'s SPEED decreases by 5.")
+                    print(f"Due to skill usage, {character.name}'s SPEED decreases by {decreased_speed}.")
                     print(f"New SPEED of {character.name}: {character.speed}")
 
 

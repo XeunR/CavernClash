@@ -2,7 +2,7 @@ Adventurer|DamageSingle|50|15|100|Hit|100|Deals 100% of Adventurer's ATK to 1 en
 Mercenary|DamageSingle|100|20|100|Assault|100|Deals 100% of Mercenary's ATK to 1 enemy.|Motivated Charge|Deals 200% of Mercenary's ATK to 1 enemy.
 Fire Wizard|DamageMulti|80|25|100|Fireball|80|Deals 80% of Fire Wizard's ATK to 1 enemy.|Meteor Shower|Deals 120% of Fire Wizard's ATK to all enemies, with a 50% chance to inflict burn.
 Ice Wizard|DamageMulti|80|25|100|Frost Beam|80|Deals 80% of Ice Wizard's ATK to 1 enemy.|Icicle Shower|Deals 50% of Ice Wizard's ATK to all enemies, with a 25% chance to inflict freeze.
-Knight|Support|150|10|110|Spear Thrust|150|Deals 150% of Knight's ATK to 1 enemy.|Team Defence|Increases HP and base HP of entire team by 50 HP.
+Knight|Support|150|10|110|Spear Thrust|100|Deals 100% of Knight's ATK to 1 enemy.|Team Defence|Increases HP and base HP of entire team by 25 HP.
 Alchemist|Support|50|35|120|Throw Potion|30|Deals 30% of Alchemist's ATK to 1 enemy.|Intense Energy Potion|Increases CRIT, ATK and SPEED of 1 ally by 15%, lasting 3 turns.
 Ninja|DamageSingle|70|20|125|Dagger|90|Deals 90% of Ninja's ATK to 1 enemy.|Sneak|Increases SPEED by 20, then deals 150% of Ninja's ATK to 1 enemy.
 Wumpus|DamageSingle|150|20|20|Please Don't Basic Attack|100|Deals 100% of Wumpus' ATK to 1 enemy.|In Honour of Harry|Swallows 1 enemy, dealing 1000% of Wumpus' ATK.

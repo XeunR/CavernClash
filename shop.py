@@ -38,6 +38,7 @@ class Shop:
             offer = random.choice(self.unlocked_trades)
             while offer in self.selling.keys():
                 offer = random.choice(self.unlocked_trades)
+            # If the offer is an item, it will be cheaper and can be sold in a greater quantity.
             offer_details = items_dict.get(offer)
             price = 0
             quantity = 0
@@ -95,6 +96,14 @@ class Shop:
             print(f"({offer_number}) {offer} - {price} coins each. {quantity} remaining")
             print(f"{rarity.upper()} {item_type}: {description}\n")
             self.offer_list.append(offer)
+
+    def check_single(self, slot_number):
+        buying_key = self.offer_list[slot_number - 1]
+        quantity = self.selling[buying_key][0]
+        if quantity == 1:
+            return True
+        else:
+            return False
 
     def buy(self, slot_number, coins, amount):
         buying_key = self.offer_list[slot_number - 1]

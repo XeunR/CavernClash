@@ -1,6 +1,6 @@
 import time, random
 
-version = "v1.0.5"
+version = "v1.0.8"
 last_update = "03/07/2025"
 
 level = 0
@@ -10,8 +10,7 @@ coins = 0
 dead = False
 
 inventory = {"Stick": 1,
-             "Cloth Robe": 1,
-             "Coin Lootbox": 1}
+             "Cloth Robe": 1}
 owned_character_list = []
 
 biomes = ("Cave Entrance", "Gemstone Geodes", "Abandoned Mines", "Mossy Caves", "Deep Caverns", "Underworld", "Dungeons")
@@ -177,14 +176,14 @@ while not result:
                 reward_coins = 10 * reward_score * (biome_number + 1) * 2
                 # Doubled coin reward until materials are introduced
                 coins += reward_coins
-                reward_xp = 3 * (biome_number + 1) + random.randint(-2, 2)
+                reward_xp = 4 * (biome_number + 1) + random.randint(-3, 3)
                 reward_xp += reward_score - 4
                 xp += reward_xp
                 print("Rewards:")
                 print(f"+{reward_coins} coins")
                 print(f"+{reward_xp} score")
                 # Lootbox drop
-                if final_reward_score >= random.randint(5, 10):
+                if final_reward_score >= random.randint(5, 15):
                     quantity_owned = inventory.get("Character Lootbox")
                     if quantity_owned is None:
                         quantity_owned = 0
@@ -281,28 +280,25 @@ while not result:
                 print("----------------------------------------------------------------------------------")
                 print("Please type the name of the item you would like to view.")
                 inventory_query = input().title()
-                if inventory.get(inventory_query):
-                    weapon_info = all_weapons.get(inventory_query)
-                    if weapon_info:
-                        print(inventory_query)
-                        print(f"Type: {weapon_info[0].upper()} Weapon")
-                        print(f"Required level: {weapon_info[2]}")
-                        print(weapon_info[3])
-                    armour_info = all_armour.get(inventory_query)
-                    if armour_info:
-                        print(inventory_query)
-                        print(f"Type: {armour_info[0].upper()} Armour")
-                        print(f"Required level: {armour_info[2]}")
-                        print(armour_info[3])
-                    item_info = all_items.get(inventory_query)
-                    if item_info:
-                        print(inventory_query)
-                        print(f"Type: {item_info[1].upper()} {item_info[0]}")
-                        print(f"Required level: {item_info[2]}")
-                        print(item_info[3])
-                    print(f"Quantity owned: {inventory[inventory_query]}")
-                else:
-                    print("Invalid input! This item is not in your inventory!")
+                weapon_info = all_weapons.get(inventory_query)
+                if weapon_info:
+                    print(inventory_query)
+                    print(f"Type: {weapon_info[0].upper()} Weapon")
+                    print(f"Required level: {weapon_info[2]}")
+                    print(weapon_info[3])
+                armour_info = all_armour.get(inventory_query)
+                if armour_info:
+                    print(inventory_query)
+                    print(f"Type: {armour_info[0].upper()} Armour")
+                    print(f"Required level: {armour_info[2]}")
+                    print(armour_info[3])
+                item_info = all_items.get(inventory_query)
+                if item_info:
+                    print(inventory_query)
+                    print(f"Type: {item_info[1].upper()} {item_info[0]}")
+                    print(f"Required level: {item_info[2]}")
+                    print(item_info[3])
+                print(f"Quantity owned: {inventory[inventory_query]}")
                 time.sleep(1)
                 print("----------------------------------------------------------------------------------")
             elif inv_action == "2":
@@ -362,7 +358,7 @@ while not result:
                 elif lootbox == "Coin":
                     lootbox = "Coin Lootbox"
                 else:
-                    lootbox = None
+                    lootbox = "Not a lootbox"
                     print("Invalid input! This is not a type of lootbox!")
                 # If the chosen lootbox is in inventory
                 if inventory_lootbox.get(lootbox):
@@ -382,7 +378,7 @@ while not result:
                                     for o in range(amount_to_open):
                                         new_character = random.choice(list(all_allies.keys()))
                                         owned_character_list.append(fighter.Ally(new_character, level))
-                                        print(f"Received {new_character}")
+                                        print(f"Received {new_character} (Character)")
                                 elif lootbox == "Weapon Lootbox":
                                     unlocked_weapons = []
                                     for key_weapon, value_weapon in all_weapons.items():
@@ -462,20 +458,21 @@ while not result:
                     inventory_armour[key_inventory] = value_inventory
                 elif all_items[key_inventory][0] == "Refine":
                     inventory_refine[key_inventory] = value_inventory
-            print("Your characters:")
-            for display in current_team:
-                print(f"{display.name} | Base HP: {display.base_hp}, Base ATK: {display.base_atk}, "
-                      f"Base SPEED: {display.base_speed}")
-                print(f"Equipped weapon: {display.weapon}, Stone: {display.weapon_stone}")
-                print(f"Equipped armour: {display.armour}, Stone: {display.armour_stone}")
+            # Printing character information
+            for d in range(3):
+                display = current_team[d]
                 display.calculate_equipment(level)
-                print(f"Normal attack - {display.normal_name}")
-                print(display.normal_description)
-                print(f"Skill - {display.skill_name}")
+                print(f"({d + 1}) {display.name} | Base HP: {display.base_hp}, Base ATK: {display.base_atk}, "
+                      f"Base SPEED: {display.base_speed}")
+                print(f"Weapon: {display.weapon} | Stone: {display.weapon_stone}")
+                print(f"Armour: {display.armour} | Stone: {display.armour_stone}")
+                print(f"Normal attack - {display.normal_name}: {display.normal_description}")
+                print(f"Skill - {display.skill_name}:")
                 print(display.skill_description)
             print("(1) Manage character equipment | (2) Replace character | (3) Exit")
             config_action = input()
             if config_action == "1":
+                print("----------------------------------------------------------------------------------")
                 print("What character would you like to change the equipment for?")
                 print(f"(1) {current_team[0].name} | (2) {current_team[1].name} | (3) {current_team[2].name}")
                 try:
@@ -578,7 +575,9 @@ while not result:
                     print("Invalid input! Select the number next to one of your characters!")
                 time.sleep(1)
                 print("----------------------------------------------------------------------------------")
+            # Switching character
             elif config_action == "2":
+                print("----------------------------------------------------------------------------------")
                 print("What character would you like to replace?")
                 print(f"(1) {current_team[0].name} | (2) {current_team[1].name} | (3) {current_team[2].name}")
                 try:
@@ -596,6 +595,7 @@ while not result:
                         for owned_character in owned_character_list:
                             if owned_character.name == insert_character:
                                 managing_character = owned_character
+                                owned_character_list.remove(owned_character)
                                 break
                         time.sleep(1)
                         print("----------------------------------------------------------------------------------")
@@ -612,6 +612,36 @@ while not result:
                             current_team.insert(current_team.index(replaced_character), managing_character)
                             current_team.remove(replaced_character)
                             print("Replacement successful.")
+                            if replaced_character.weapon:
+                                if replaced_character.weapon in inventory.keys():
+                                    inventory[replaced_character.weapon] += 1
+                                else:
+                                    inventory[replaced_character.weapon] = 1
+                                replaced_character.weapon = None
+
+                            if replaced_character.armour:
+                                if replaced_character.armour in inventory.keys():
+                                    inventory[replaced_character.armour] += 1
+                                else:
+                                    inventory[replaced_character.armour] = 1
+                                replaced_character.armour = None
+
+                            if replaced_character.weapon_stone:
+                                if replaced_character.weapon_stone in inventory.keys():
+                                    inventory[replaced_character.weapon_stone] += 1
+                                else:
+                                    inventory[replaced_character.weapon_stone] = 1
+                                replaced_character.weapon_stone = None
+
+                            if replaced_character.armour_stone:
+                                if replaced_character.armour_stone in inventory.keys():
+                                    inventory[replaced_character.armour_stone] += 1
+                                else:
+                                    inventory[replaced_character.armour_stone] = 1
+                                replaced_character.armour_stone = None
+
+                            print(f"All items on {replaced_character.name} have been moved to your inventory.")
+
                         else:
                             print("Replacement cancelled.")
                     else:
@@ -620,6 +650,8 @@ while not result:
                     print("Invalid input! Select the corresponding number!")
                 except IndexError:
                     print("Invalid input! Select the number next to one of your characters!")
+                time.sleep(1)
+                print("----------------------------------------------------------------------------------")
             else:
                 left = True
     elif move == "4":
@@ -642,8 +674,11 @@ while not result:
                     slot = int(input())
                     try:
                         if slot in range(1, store.slots + 1):
-                            print("How much of that item would you like to buy?")
-                            amount = int(input())
+                            if store.check_single(slot):
+                                amount = 1
+                            else:
+                                print("How much of that item would you like to buy?")
+                                amount = int(input())
                             time.sleep(1)
                             print("----------------------------------------------------------------------------------")
                             bought_item, price, buy_success = store.buy(slot, coins, amount)
@@ -656,24 +691,21 @@ while not result:
                                 inventory[bought_item] = quantity_owned
                         else:
                             print("Invalid input. Please select a valid amount.")
-                        time.sleep(1)
-                        print("----------------------------------------------------------------------------------")
                     except ValueError:
                         print("Invalid input! Please select the number next to the item you want to buy!")
-                        time.sleep(1)
-                        print("----------------------------------------------------------------------------------")
+                    time.sleep(1)
+                    print("----------------------------------------------------------------------------------")
 
                 elif shop_action == "2":
+                    print("----------------------------------------------------------------------------------")
                     if store.restock_attempts == 1:
                         store.restock(level)
                         print("Shop successfully restocked.")
-                        time.sleep(1)
-                        print("----------------------------------------------------------------------------------")
                     else:
                         print("You have run out of restock attempts.")
                         print("Win another battle to gain a restock attempt.")
-                        time.sleep(1)
-                        print("----------------------------------------------------------------------------------")
+                    time.sleep(1)
+                    print("----------------------------------------------------------------------------------")
                 else:
                     left = True
     elif move.title() == "L" or move.title() == "Left":

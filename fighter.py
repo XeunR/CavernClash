@@ -117,7 +117,6 @@ class Fighter:
                 del self.negative_effects[key_effect]
 
         for key_effect, value_effect in self.positive_effects.items():
-            self.positive_effects[key_effect] -= 1
             if key_effect == "Alchemist Potion":
                 self.crit_rate += 0.15
                 self.atk += self.base_atk * 0.15
@@ -128,7 +127,7 @@ class Fighter:
             elif key_effect == "Cleric's Faith":
                 self.atk += self.base_atk * 0.6
                 self.speed += 0.1
-            self.negative_effects[key_effect] -= 1
+            self.positive_effects[key_effect] -= 1
             if value_effect == 0:
                 del self.positive_effects[key_effect]
 
@@ -199,7 +198,7 @@ class Ally(Fighter):
             self.next_action = -1
 
     def normal(self):
-        normal_damage = round(self.atk * self.normal_damage / 100) + random.randint(-5, 5)
+        normal_damage = round(self.atk * self.normal_damage / 100) + random.randint(-3, 3)
         critical = random.random()
         crit_display = False
         if critical <= self.crit_rate:
@@ -209,7 +208,7 @@ class Ally(Fighter):
 
     # Unique skills of each character
     def skill_motivated_charge(self):
-        skill_damage = round(self.atk * 2) + random.randint(-5, 5)
+        skill_damage = round(self.atk * 2) + random.randint(-3, 3)
         critical = random.random()
         crit_display = False
         if critical <= self.crit_rate:
@@ -218,7 +217,7 @@ class Ally(Fighter):
         return skill_damage, crit_display
 
     def skill_with_all_our_might(self):
-        skill_damage = round(self.atk * 2) + random.randint(-5, 5)
+        skill_damage = round(self.atk * 2) + random.randint(-3, 3)
         critical = random.random()
         crit_display = False
         if critical <= self.crit_rate + 0.2:
@@ -227,7 +226,7 @@ class Ally(Fighter):
         return skill_damage, crit_display
 
     def skill_meteor_shower(self):
-        skill_damage = round(self.atk * 1.2) + random.randint(-5, 5)
+        skill_damage = round(self.atk * 1.2) + random.randint(-3, 3)
         critical = random.random()
         crit_display = False
         if critical <= self.crit_rate:
@@ -236,7 +235,7 @@ class Ally(Fighter):
         return skill_damage, crit_display
 
     def skill_icicle_shower(self):
-        skill_damage = round(self.atk * 0.5) + random.randint(-5, 5)
+        skill_damage = round(self.atk * 0.5) + random.randint(-3, 3)
         critical = random.random()
         crit_display = False
         if critical <= self.crit_rate:
@@ -245,7 +244,7 @@ class Ally(Fighter):
         return skill_damage, crit_display
 
     def skill_sneak(self):
-        skill_damage = round(self.atk * 1.5) + random.randint(-5, 5)
+        skill_damage = round(self.atk * 1.5) + random.randint(-3, 3)
         critical = random.random()
         crit_display = False
         if critical <= self.crit_rate:
@@ -254,7 +253,7 @@ class Ally(Fighter):
         return skill_damage, crit_display
 
     def skill_in_honour_of_harry(self):
-        skill_damage = round(self.atk * 10) + random.randint(-5, 5)
+        skill_damage = round(self.atk * 10) + random.randint(-3, 3)
         critical = random.random()
         crit_display = False
         if critical <= self.crit_rate:
@@ -263,7 +262,7 @@ class Ally(Fighter):
         return skill_damage, crit_display
 
     def skill_big_booms(self):
-        skill_damage = round(self.atk * 1.75) + random.randint(-5, 5)
+        skill_damage = round(self.atk * 1.75) + random.randint(-3, 3)
         critical = random.random()
         crit_display = False
         if critical <= self.crit_rate:
@@ -272,7 +271,7 @@ class Ally(Fighter):
         return skill_damage, crit_display
 
     def skill_dark_magic_spell(self):
-        skill_damage = round(self.atk * 0.7) + random.randint(-5, 5)
+        skill_damage = round(self.atk * 0.7) + random.randint(-3, 3)
         critical = random.random()
         crit_display = False
         if critical <= self.crit_rate:
