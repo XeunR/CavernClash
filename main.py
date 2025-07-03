@@ -1,6 +1,6 @@
 import time, random
 
-version = "v1.0.8"
+version = "v1.0.9"
 last_update = "03/07/2025"
 
 level = 0
@@ -176,7 +176,7 @@ while not result:
                 reward_coins = 10 * reward_score * (biome_number + 1) * 2
                 # Doubled coin reward until materials are introduced
                 coins += reward_coins
-                reward_xp = 4 * (biome_number + 1) + random.randint(-3, 3)
+                reward_xp = 5 * (biome_number + 1) + random.randint(-3, 3)
                 reward_xp += reward_score - 4
                 xp += reward_xp
                 print("Rewards:")
