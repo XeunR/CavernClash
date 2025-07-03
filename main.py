@@ -1,5 +1,8 @@
 import time, random
 
+version = "v1.0.5"
+last_update = "03/07/2025"
+
 level = 0
 level_up_requirement = 0
 xp = 0
@@ -7,7 +10,8 @@ coins = 0
 dead = False
 
 inventory = {"Stick": 1,
-             "Cloth Robe": 1}
+             "Cloth Robe": 1,
+             "Coin Lootbox": 1}
 owned_character_list = []
 
 biomes = ("Cave Entrance", "Gemstone Geodes", "Abandoned Mines", "Mossy Caves", "Deep Caverns", "Underworld", "Dungeons")
@@ -66,8 +70,8 @@ def find_enemy(biome_no, enemy_rarity, enemies_dict):
 
 # Start game
 print("----------------------------------------------------------------------------------")
-print("Cavern Clash v1.0.0")
-print("Last update: 23/06/2025")
+print(f"Cavern Clash {version}")
+print(f"Last update: {last_update}")
 print("Please wait while we load the game.")
 print("If this takes a long time, then the game will not run smoothly.")
 import battle, shop, fighter
@@ -101,7 +105,8 @@ if tutorial_query == "1":
             result = tutorial.check_death()
             if result:
                 break
-            tutorial.turn(guy)
+            if guy in tutorial.characters:
+                tutorial.turn(guy)
 
 result = None
 while not result:
@@ -159,8 +164,11 @@ while not result:
                     result = encounter.check_death()
                     if result:
                         break
-                    encounter.turn(guy)
+                    if guy in encounter.characters:
+                        encounter.turn(guy)
             if result == "Win":
+                time.sleep(1)
+                print("----------------------------------------------------------------------------------")
                 print("Congratulations, you have survived another battle!")
                 # Rewards
                 final_reward_score = random.randint(4, reward_score + 1)
@@ -247,7 +255,7 @@ while not result:
                         store.slots += 1
                         unlocked_biomes.append("Underworld")
                     # Ancient Dungeons unlocks via bossfight
-                print(f"For your next level up you will need {level_up_requirement - xp} score.")
+                print(f"For your next level up, you will need {level_up_requirement - xp} more score.")
                 store.restock_attempts = 1
                 if win_chance:
                     print("----------------------------------------------------------------------------------")
@@ -337,35 +345,32 @@ while not result:
                 inventory_lootbox = {}
                 print("Your lootboxes:")
                 for key_inventory, value_inventory in inventory.items():
-                    if all_items.get(key_inventory)[0] == "Lootbox":
+                    if "Lootbox" in key_inventory:
                         inventory_lootbox[key_inventory] = value_inventory
                 for key_inventory, value_inventory in inventory_lootbox.items():
                     print(f"{key_inventory} - {value_inventory}")
                 print("What lootbox would you like to open? (Type name)")
                 lootbox = input().title()
-                open_success = False
-                if lootbox == "Character" or lootbox == "Character Lootbox":
+                if lootbox == "Character":
                     lootbox = "Character Lootbox"
-                    open_success = True
-                elif lootbox == "Weapon" or lootbox == "Weapon Lootbox":
+                elif lootbox == "Weapon":
                     lootbox = "Weapon Lootbox"
-                    open_success = True
-                elif lootbox == "Armour" or lootbox == "Armour Lootbox":
+                elif lootbox == "Armour":
                     lootbox = "Armour Lootbox"
-                    open_success = True
-                elif lootbox == "Item" or lootbox == "Item Lootbox":
+                elif lootbox == "Item":
                     lootbox = "Item Lootbox"
-                    open_success = True
-                elif lootbox == "Coin" or lootbox == "Coin Lootbox":
+                elif lootbox == "Coin":
                     lootbox = "Coin Lootbox"
-                    open_success = True
                 else:
+                    lootbox = None
                     print("Invalid input! This is not a type of lootbox!")
-                if open_success:
+                # If the chosen lootbox is in inventory
+                if inventory_lootbox.get(lootbox):
                     print("How many would you like to open? (Type amount) | (A) All")
                     amount_to_open = input().title()
                     if amount_to_open == "A" or amount_to_open == "All":
                         amount_to_open = inventory_lootbox.get(lootbox)
+                    amount_to_open = int(amount_to_open)
                     if amount_to_open > 0:
                         try:
                             amount_to_open = int(amount_to_open)
@@ -422,12 +427,21 @@ while not result:
                                         new_coins = 10 * (level + 1) + random.randint(-5, 5)
                                         coins += new_coins
                                         print(f"+{new_coins} coins")
+                                for r in range(amount_to_open):
+                                    inventory[lootbox] -= 1
+                                    if inventory.get(lootbox) <= 0:
+                                        del inventory[lootbox]
                             else:
                                 print("Invalid input! You do not have that many lootboxes in your inventory!")
                         except ValueError:
                             print("Invalid input! Enter a number, or type 'A' for all!")
                     else:
                         print("Invalid input! You don't have that many lootboxes to open!")
+                else:
+                    print("Invalid input! You don't have any of that lootbox!")
+                time.sleep(1)
+                print("----------------------------------------------------------------------------------")
+
 
             # elif inv_action == "4":
                 # Crafting will be introduced later
@@ -450,11 +464,11 @@ while not result:
                     inventory_refine[key_inventory] = value_inventory
             print("Your characters:")
             for display in current_team:
-                print(display.name)
+                print(f"{display.name} | Base HP: {display.base_hp}, Base ATK: {display.base_atk}, "
+                      f"Base SPEED: {display.base_speed}")
                 print(f"Equipped weapon: {display.weapon}, Stone: {display.weapon_stone}")
                 print(f"Equipped armour: {display.armour}, Stone: {display.armour_stone}")
                 display.calculate_equipment(level)
-                print(f"Base HP: {display.base_hp}, Base ATK: {display.base_atk}, Base SPEED: {display.base_speed}")
                 print(f"Normal attack - {display.normal_name}")
                 print(display.normal_description)
                 print(f"Skill - {display.skill_name}")
@@ -556,11 +570,14 @@ while not result:
                             print(f"{equip} successfully equipped.")
                         else:
                             print("Invalid input! This item is not in your inventory!")
-                    print("----------------------------------------------------------------------------------")
+                    else:
+                        print("Invalid input! Select the number next to the character!")
                 except ValueError:
                     print("Invalid input! Select the corresponding number!")
                 except IndexError:
                     print("Invalid input! Select the number next to one of your characters!")
+                time.sleep(1)
+                print("----------------------------------------------------------------------------------")
             elif config_action == "2":
                 print("What character would you like to replace?")
                 print(f"(1) {current_team[0].name} | (2) {current_team[1].name} | (3) {current_team[2].name}")
@@ -660,8 +677,8 @@ while not result:
                 else:
                     left = True
     elif move.title() == "L" or move.title() == "Left":
-        current_biome = biomes[location - 1]
         if location > 0:
+            current_biome = biomes[location - 1]
             print(f"Moving to {current_biome}...")
             time.sleep(1)
             print("Navigation successful.")

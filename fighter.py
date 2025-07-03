@@ -139,6 +139,10 @@ class Ally(Fighter):
         self.crit_rate = None
 
     def calculate_equipment(self, level):
+        # Removing battle identifiers
+        self.name = self.name.strip("②")
+        self.name = self.name.strip("③")
+
         stats = allies_dict[self.name]
         self.role = stats[0]
         if self.role == "DamageSingle" or self.role == "DamageMulti":
@@ -188,6 +192,11 @@ class Ally(Fighter):
         self.atk = self.base_atk
         self.speed = self.base_speed
         self.crit_rate = self.base_crit_rate
+
+        try:
+            self.next_action = round(10000 / self.speed)
+        except ZeroDivisionError:
+            self.next_action = -1
 
     def normal(self):
         normal_damage = round(self.atk * self.normal_damage / 100) + random.randint(-5, 5)
