@@ -108,7 +108,7 @@ class Shop:
     def buy(self, slot_number, coins, amount):
         buying_key = self.offer_list[slot_number - 1]
         buying_value = self.selling[buying_key]
-        if amount > buying_value[0]:
+        if amount > buying_value[0] or buying_value[0] == 0:
             print("Transaction failed! Insufficient stock.")
             return buying_key, 0, False
         price = amount * buying_value[1]

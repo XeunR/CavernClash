@@ -87,49 +87,52 @@ class Fighter:
         if self.__class__.__name__ == "Ally":
             self.crit_rate = self.base_crit_rate
 
-        for key_effect, value_effect in self.negative_effects.items():
-            if key_effect == "Poisoned":
-                self.lose_health(10)
-                print(f"{self.name} takes 10 poison damage.")
-            elif key_effect == "Burned":
-                self.lose_health(20)
-                print(f"{self.name} takes 20 burn damage.")
-            elif key_effect == "Bleeding":
-                self.lose_health(20)
-                print(f"{self.name} takes 20 bleed damage.")
-            elif key_effect == "Slow":
-                self.speed -= round(self.base_speed * 0.1)
-            elif key_effect == "Grief":
-                self.speed -= round(self.base_speed * 0.05)
-                self.atk -= round(self.base_atk * 0.1)
-            elif key_effect == "Decay":
-                self.atk -= round(self.base_atk * 0.1)
-                self.lose_health(20)
-                print(f"{self.name} takes 20 decay damage.")
-            elif key_effect == "Frozen":
-                print(f"{self.name} has lost a turn, but is now unfrozen.")
-                try:
-                    self.next_action = round(10000 / self.speed)
-                except ZeroDivisionError:
-                    self.next_action = -1
-            self.negative_effects[key_effect] -= 1
-            if value_effect == 0:
-                del self.negative_effects[key_effect]
+        for key_effect, value_effect in self.negative_effects.keys():
+            if value_effect > 0:
+                if key_effect == "Poisoned":
+                    self.lose_health(10)
+                    print(f"{self.name} takes 10 poison damage.")
+                elif key_effect == "Burned":
+                    self.lose_health(20)
+                    print(f"{self.name} takes 20 burn damage.")
+                elif key_effect == "Bleeding":
+                    self.lose_health(20)
+                    print(f"{self.name} takes 20 bleed damage.")
+                elif key_effect == "Slow":
+                    self.speed -= round(self.base_speed * 0.1)
+                elif key_effect == "Grief":
+                    self.speed -= round(self.base_speed * 0.05)
+                    self.atk -= round(self.base_atk * 0.1)
+                elif key_effect == "Decay":
+                    self.atk -= round(self.base_atk * 0.1)
+                    self.lose_health(20)
+                    print(f"{self.name} takes 20 decay damage.")
+                elif key_effect == "Frozen":
+                    print(f"{self.name} has lost a turn, but is now unfrozen.")
+                    try:
+                        self.next_action = round(10000 / self.speed)
+                    except ZeroDivisionError:
+                        self.next_action = -1
+                value_effect -= 1
+                self.negative_effects[key_effect] -= value_effect
+                print(f"{key_effect} - {value_effect} turns remaining.")
 
         for key_effect, value_effect in self.positive_effects.items():
-            if key_effect == "Alchemist Potion":
-                self.crit_rate += 0.15
-                self.atk += self.base_atk * 0.15
-                self.speed += 0.15
-            elif key_effect == "Commanded":
-                self.crit_rate += 0.15
-                self.atk += self.base_atk * 0.5
-            elif key_effect == "Cleric's Faith":
-                self.atk += self.base_atk * 0.6
-                self.speed += 0.1
-            self.positive_effects[key_effect] -= 1
-            if value_effect == 0:
-                del self.positive_effects[key_effect]
+            if value_effect > 0:
+                if key_effect == "Alchemist Potion":
+                    self.crit_rate += 0.15
+                    self.atk += self.base_atk * 0.15
+                    self.speed += 0.15
+                elif key_effect == "Commanded":
+                    self.crit_rate += 0.15
+                    self.atk += self.base_atk * 0.5
+                elif key_effect == "Cleric's Faith":
+                    self.atk += self.base_atk * 0.6
+                    self.speed += 0.1
+                self.positive_effects[key_effect] -= 1
+                value_effect -= 1
+                self.negative_effects[key_effect] -= value_effect
+                print(f"{key_effect} - {value_effect} turns remaining.")
 
 
 class Ally(Fighter):

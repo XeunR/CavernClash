@@ -1,7 +1,7 @@
 import time, random
 
-version = "v1.0.9"
-last_update = "03/07/2025"
+version = "v1.0.11"
+last_update = "04/07/2025"
 
 level = 0
 level_up_requirement = 0
@@ -211,8 +211,8 @@ while not result:
                     quantity_owned = inventory.get("Item Lootbox")
                     if quantity_owned is None:
                         quantity_owned = 0
-                    quantity_owned += 1
                     amount = random.randint(1, 6)
+                    quantity_owned += amount
                     inventory["Item Lootbox"] = quantity_owned
                     print(f"+{amount} Item Lootbox")
 
@@ -298,7 +298,7 @@ while not result:
                     print(f"Type: {item_info[1].upper()} {item_info[0]}")
                     print(f"Required level: {item_info[2]}")
                     print(item_info[3])
-                print(f"Quantity owned: {inventory[inventory_query]}")
+                print(f"Quantity owned: {inventory.get(inventory_query)}")
                 time.sleep(1)
                 print("----------------------------------------------------------------------------------")
             elif inv_action == "2":
@@ -347,19 +347,18 @@ while not result:
                     print(f"{key_inventory} - {value_inventory}")
                 print("What lootbox would you like to open? (Type name)")
                 lootbox = input().title()
-                if lootbox == "Character":
+                if lootbox == "Character" or lootbox == "Character Lootbox":
                     lootbox = "Character Lootbox"
-                elif lootbox == "Weapon":
+                elif lootbox == "Weapon" or lootbox == "Weapon Lootbox":
                     lootbox = "Weapon Lootbox"
-                elif lootbox == "Armour":
+                elif lootbox == "Armour" or lootbox == "Armour Lootbox":
                     lootbox = "Armour Lootbox"
-                elif lootbox == "Item":
+                elif lootbox == "Item" or lootbox == "Item Lootbox":
                     lootbox = "Item Lootbox"
-                elif lootbox == "Coin":
+                elif lootbox == "Coin" or lootbox == "Coin Lootbox":
                     lootbox = "Coin Lootbox"
                 else:
                     lootbox = "Not a lootbox"
-                    print("Invalid input! This is not a type of lootbox!")
                 # If the chosen lootbox is in inventory
                 if inventory_lootbox.get(lootbox):
                     print("How many would you like to open? (Type amount) | (A) All")
@@ -600,11 +599,13 @@ while not result:
                         time.sleep(1)
                         print("----------------------------------------------------------------------------------")
                         print(insert_character)
-                        print(f"Equipped weapon: {managing_character.weapon}, Stone: {managing_character.weapon_stone}")
-                        print(f"Equipped armour: {managing_character.armour}, Stone: {managing_character.armour_stone}")
                         managing_character.calculate_equipment(level)
                         print(f"Base HP: {managing_character.base_hp}, Base ATK: {managing_character.base_atk}, "
                               f"Base SPEED: {managing_character.base_speed}")
+                        print(f"Normal attack - {managing_character.normal_name}: "
+                              f"{managing_character.normal_description}")
+                        print(f"Skill - {managing_character.skill_name}:")
+                        print(managing_character.skill_description)
                         print(f"Confirm replacement of {replaced_character.name} with {managing_character.name}?")
                         print("(1) Yes | (2) No")
                         confirm = input()

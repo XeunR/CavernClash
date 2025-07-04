@@ -38,3 +38,23 @@ Runestone Wand|Weapon|Rare|115|20|Etched with forgotten glyphs.
 Veiled Mask|Armour|Rare|230|20|Filters the toxic air.
 Draughtbane|Weapon|Legendary|150|20|Controls the flow of wind.
 Phantomsong|Armour|Legendary|300|20|The voices of the jungle...
+Chlorolance|Weapon|Rare|125|21|Made of razor sharp leaves.
+Husk Aegis|Armour|Rare|250|21|Stitched from the toughest beetle shells.
+Flower Pow|Weapon|SuperRare|140|23|A gun launching tons of sharp petals.
+Flower Harness|Armour|SuperRare|280|23|Each flower has a distinct smell...
+Fiberglass Javelin|Weapon|Rare|155|24|Clear, sharp and lightweight
+Verdant Plate|Armour|Rare|310|24|Camouflages with the mossy background.
+Expedition Toolkit|Weapon|Normal|150|25|Essential for Deep Cavern travel.
+Expedition Robe|Armour|Normal|300|25|Essential for Deep Cavern travel.
+Obsidian Knife|Weapon|Rare|170|25|Primitive but effective.
+Scalemail|Armour|Rare|340|25|The blacksmith spent a lot of time on this.
+Very Long Sword|Weapon|Legendary|200|27|30m long!
+Giant's Armour|Armour|Legendary|400|27|Size XXXXXXL.
+Explosive Crossbow|Weapon|Rare|180|27|No, the crossbow doesn't explode.
+Battleplate|Armour|Rare|360|27|Projectiles don't even leave a dent.
+Fireman's Axe|Weapon|SuperRare|190|28|The tool for getting out of tough situations.
+Fireman's Uniform|Armour|SuperRare|380|28|Completely resistant to heat and fire.
+Dynamite|Weapon|Rare|195|29|Watch out when throwing these.
+Volcanologist's Gear|Armour|Rare|390|29|You need something to protect against all the lava.
+Excalibur|Weapon|Legendary|250|30|Used for defeating dragons.
+Hero's Armour|Armour|Legendary|500|30|One of the toughest things ever forged.
