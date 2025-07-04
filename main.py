@@ -17,6 +17,11 @@ biomes = ("Cave Entrance", "Gemstone Geodes", "Abandoned Mines", "Mossy Caves", 
 unlocked_biomes = ["Cave Entrance"]
 current_biome = "Cave Entrance"
 
+bee_kills = 0
+bee_defeated = False
+dragon_kills = 0
+dragon_defeated = False
+
 def load():
     with open("ally.txt", "r") as allies:
         allies_dict = {}
@@ -139,7 +144,6 @@ while not result:
             rare_enemy = find_enemy(biome_number, "Rare", all_enemies)
             legendary_enemy = find_enemy(biome_number, "Legendary", all_enemies)
             reward_score = 1
-            win_chance = False
             for enemy_selection in range(3):
                 enemy_roll = random.random()
                 if enemy_roll <= (0.7 - 0.05 * biome_number):
@@ -151,8 +155,10 @@ while not result:
                 else:
                     characters.append(fighter.Enemy(legendary_enemy, level))
                     reward_score += 10
+                    if legendary_enemy == "Queen Bee (BOSS)":
+                        bee_kills += 1
                     if legendary_enemy == "Hell-Infused Dragon (BOSS)":
-                        win_chance = True
+                        dragon_kills += 1
             encounter = battle.BattleManager(characters, level)
             result = None
             while not result:
@@ -247,21 +253,27 @@ while not result:
                     elif level == 20:
                         print("New feature unlocked: Extra shop slot (2/3)")
                         store.slots += 1
-                    # Deep Caverns unlocks via bossfight, but the game ends here for now
-                    elif level >= 30 and "Deep Caverns" in unlocked_biomes and "Underworld" not in unlocked_biomes:
+                    # Deep Caverns unlocks via bossfight
+                    elif level >= 30 and ("Deep Caverns" in unlocked_biomes) and ("Underworld" not in unlocked_biomes):
                         print("New area unlocked: Underworld")
                         print("New feature unlocked: Extra shop slot (3/3)")
                         store.slots += 1
                         unlocked_biomes.append("Underworld")
                     # Ancient Dungeons unlocks via bossfight
                 print(f"For your next level up, you will need {level_up_requirement - xp} more score.")
-                store.restock_attempts = 1
-                if win_chance:
+                if bee_kills > 0 and bee_defeated == False:
+                    bee_defeated = True
+                    print("New area unlocked: Deep Caverns")
+                    unlocked_biomes.append("Deep Caverns")
+                if dragon_kills > 0 and dragon_defeated == False:
+                    dragon_defeated = True
                     print("----------------------------------------------------------------------------------")
                     print("The Hell-Infused Dragon lays at your feet.")
                     print("Smoke no longer erupts from his nostrils.")
                     print("Congratulations, you have beaten the game!")
                     print("Thank you for playing Cavern Clash!")
+                    coins += 1000000000
+                store.restock_attempts = 1
                 result = None
     elif move == "2":
         left = False

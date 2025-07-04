@@ -9,7 +9,7 @@ Mole|2|150|80|60|Rare|bites deeply into
 Angry Miner|2|300|50|250|Legendary|swings his pickaxe at
 Living Slime|3|250|90|100|Normal|jumps onto
 Hornet|3|300|75|200|Rare|stings
-Queen Bee(BOSS)|3|1000|100|150|Legendary|honey squirts
+Queen Bee (BOSS)|3|1000|100|150|Legendary|honey squirts
 Little Bee|3|50|40|100|Other|poisons
 Skeleton|4|400|90|100|Normal|throws a bone at
 Very Mad Bat|4|200|120|150|Rare|swoops down on
