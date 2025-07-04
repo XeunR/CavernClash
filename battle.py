@@ -1,4 +1,4 @@
-import random, time
+import random, time, fighter
 
 def print_potential_targets(team_list):
     if len(team_list) == 1:
@@ -424,38 +424,86 @@ class BattleManager:
                 # Check if enemy has custom AI
                 # For custom AI, always use normal_name and not name
                 # Boss fights:
-                # if character.normal_name == "honey squirts":
-                #     character.special_queen_bee()
-                # elif character.normal_name == "fireballs":
-                #     character.special_dragon()
-                # else:
-                target = random.choice(self.player_team)
-                damage = character.normal()
-                target.lose_health(damage)
-                print(f"{character.name} {character.normal_name} {target.name}.")
-                print(f"Dealt {damage} damage.")
-                # Attacks that apply effects
-                if character.normal_name == "poisons" or character.normal_name == "stings":
-                    target.effects["Poisoned"] = 3
-                    print(f"{character.normal_name} is poisoned for the next 3 turns.")
-                elif character.normal_name == "swoops down on" or character.normal_name == "viciously bites":
-                    target.effects["Bleeding"] = 2
-                    print(f"{character.normal_name} is bleeding for the next 2 turns.")
-                elif character.normal_name == "ambushes":
-                    if random.random() < 0.5:
-                        target.effects["Slow"] = 2
-                        print(f"{character.normal_name} is slow for the next 2 turns.")
-                elif character.normal_name == "torments":
-                    if random.random() < 0.3:
-                        target.effects["Grief"] = 3
-                        print(f"{character.normal_name} is having some mental difficulties for the next 3 turns.")
-
+                if character.normal_name == "honey squirts":
+                    character.attack_sequence += 1
+                    if character.attack_sequence == 4:
+                        character.attack_sequence = 1
+                    if character.attack_sequence == 1:
+                        bee_summons = 3 - len(self.enemy_team)
+                        for _ in range(bee_summons):
+                            print("The Queen BEE (BOSS) spawns a Little Bee")
+                            bee = fighter.Enemy("Little Bee", 0)
+                            bee.next_action = self.action_value + round(10000 / character.speed)
+                            self.enemy_team.append(bee)
+                    elif character.attack_sequence == 2:
+                        for target in self.enemy_team:
+                            damage = character.normal()
+                            target.lose_health(damage)
+                            print(f"{character.name} honey squirts {target.name}.")
+                            print(f"Dealt {damage} damage.")
+                            if random.random() < 0.3:
+                                target.negative_effects["Slow"] = 2
+                                print(f"{character.normal_name} is slow for the next 2 turns.")
+                    elif character.attack_sequence == 3:
+                        target = random.choice(self.player_team)
+                        damage = character.normal() * 2
+                        target.lose_health(damage)
+                        print(f"{character.name} ruthlessly stings {target.name}.")
+                        print(f"Dealt {damage} damage.")
+                elif character.normal_name == "fireballs":
+                    character.attack_sequence += 1
+                    if character.attack_sequence == 4:
+                        character.attack_sequence = 1
+                    if character.attack_sequence == 1:
+                        character.hp += 100
+                        character.atk += round(character.atk / 10)
+                        print("The Hell-Infused Dragon (BOSS) dances!" )
+                        print("Its health is increased by 100 HP!")
+                        print("Its attack is increased by 10%!")
+                        for target in self.enemy_team:
+                            if random.random() < 0.3:
+                                target.negative_effects["Grief"] = 3
+                                print(f"{target.normal_name} is having some mental difficulties for the next 3 turns.")
+                    elif character.attack_sequence == 2:
+                        for target in self.enemy_team:
+                            damage = character.normal()
+                            target.lose_health(damage)
+                            print(f"{character.name} breathes fire at {target.name}.")
+                            print(f"Dealt {damage} damage.")
+                            target.negative_effects["Burn"] = 2
+                            print(f"{target.normal_name} is now burned for the next 2 turns.")
+                    elif character.attack_sequence == 3:
+                        for _ in range(5):
+                            target = random.choice(self.player_team)
+                            damage = round(character.normal() * 0.6)
+                            target.lose_health(damage)
+                            print(f"{character.name} swoops into {target.name}.")
+                            print(f"Dealt {damage} damage.")
+                else:
+                    # Regular damage
+                    target = random.choice(self.player_team)
+                    damage = character.normal()
+                    target.lose_health(damage)
+                    print(f"{character.name} {character.normal_name} {target.name}.")
+                    print(f"Dealt {damage} damage.")
+                    # Attacks that apply effects
+                    if character.normal_name == "poisons" or character.normal_name == "stings":
+                        target.negative_effects["Poisoned"] = 3
+                        print(f"{target.normal_name} is poisoned for the next 3 turns.")
+                    elif character.normal_name == "swoops down on" or character.normal_name == "viciously bites":
+                        target.negative_effects["Bleeding"] = 2
+                        print(f"{target.normal_name} is bleeding for the next 2 turns.")
+                    elif character.normal_name == "ambushes":
+                        if random.random() < 0.5:
+                            target.negative_effects["Slow"] = 2
+                            print(f"{target.normal_name} is slow for the next 2 turns.")
+                    elif character.normal_name == "torments":
+                        if random.random() < 0.3:
+                            target.negative_effects["Grief"] = 3
+                            print(f"{target.normal_name} is having some mental difficulties for the next 3 turns.")
             try:
                 character.next_action += round(10000 / character.speed)
             except ZeroDivisionError:
                 character.next_action = -1
             time.sleep(1)
             print("----------------------------------------------------------------------------------")
-        else:
-            pass
-

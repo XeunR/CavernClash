@@ -1,6 +1,6 @@
 import time, random
 
-version = "v1.0.11"
+version = "v1.0.12"
 last_update = "04/07/2025"
 
 level = 0
@@ -32,9 +32,9 @@ def load():
         for enemy in enemies:
             enemy_list = enemy.strip().split("|")
             enemies_dict[enemy_list[0]] = [int(enemy_list[1]), int(enemy_list[2]), int(enemy_list[3]),
-                                           int(enemy_list[4]), enemy_list[5], enemy_list[6], int(enemy_list[7])]
+                                           int(enemy_list[4]), enemy_list[5], enemy_list[6]]
         # Structure of enemy.txt: Name|Biome Number|Base HP|Base ATK|
-        #                         Base SPEED|Rarity|Normal Attack Name|Damage %
+        #                         Base SPEED|Rarity|Normal Attack Name
 
     with open("gear.txt", "r") as gears:
         weapon_dict = {}

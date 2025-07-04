@@ -56,5 +56,11 @@ Fireman's Axe|Weapon|SuperRare|190|28|The tool for getting out of tough situatio
 Fireman's Uniform|Armour|SuperRare|380|28|Completely resistant to heat and fire.
 Dynamite|Weapon|Rare|195|29|Watch out when throwing these.
 Volcanologist's Gear|Armour|Rare|390|29|You need something to protect against all the lava.
-Excalibur|Weapon|Legendary|250|30|Used for defeating dragons.
+Inferno|Weapon|Normal|200|30|A sword forged from pure fire.
+Hellstone Armour|Armour|Normal|400|30|Smelted from the riches of the underworld.
+Demon Scythe|Weapon|Rare|210|30|Channels the magical power of demons.
+Dragon Wings|Armour|Rare|420|30|The fireproof scales are impenetrable, allowing the user to fly.
+Craftsman's Blade|Weapon|SuperRare|230|30|The hardest weapon to forge.
+Craftsman's Armour|Armour|SuperRare|460|30|The hardest armour to forge.
+Excalibur|Weapon|Legendary|250|30|Only for the worthy - The legendary sword that defeats dragons.
 Hero's Armour|Armour|Legendary|500|30|One of the toughest things ever forged.

@@ -14,7 +14,7 @@ with open("enemy.txt", "r") as enemies:
     for enemy in enemies:
         enemy_list = enemy.strip().split("|")
         enemies_dict[enemy_list[0]] = [int(enemy_list[1]), int(enemy_list[2]), int(enemy_list[3]),
-                                       int(enemy_list[4]), enemy_list[6], int(enemy_list[7])]
+                                       int(enemy_list[4]), enemy_list[6]]
     # Removed rarity as it's not needed
 
 with open("gear.txt", "r") as gears:
@@ -65,7 +65,6 @@ class Fighter:
             self.base_atk = stats[2]
             self.base_speed = stats[3]
             self.normal_name = stats[4]
-            self.normal_damage = stats[5]
 
         self.hp = self.base_hp
         self.atk = self.base_atk
@@ -140,10 +139,10 @@ class Ally(Fighter):
         super().__init__(name, level)
         self.crit_rate = None
 
+    # Before a battle, the stats of each character will be reset
     def calculate_equipment(self, level):
         # Removing battle identifiers
-        self.name = self.name.strip("②")
-        self.name = self.name.strip("③")
+        self.name = self.name.strip("②③")
 
         stats = allies_dict[self.name]
         self.role = stats[0]
@@ -286,11 +285,8 @@ class Ally(Fighter):
 class Enemy(Fighter):
     def __init__(self, name, level):
         super().__init__(name, level)
+        self.attack_sequence = 0
 
     def normal(self):
-        normal_damage = round(self.atk * self.normal_damage / 100) + random.randint(-5, 5)
+        normal_damage = self.atk + random.randint(-5, 5)
         return normal_damage
-
-    # Custom AI
-    def special(self):
-        pass

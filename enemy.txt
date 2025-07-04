@@ -1,19 +1,19 @@
-Rock|0|50|0|0|Normal|does nothing to |0
-Golem|0|75|20|80|Rare|throws a rock at|100
-The Legendary Pebble|0|150|50|80|Legendary|sneezes at|100
-Possessed Gem|1|100|20|70|Normal|scratches|100
-Fairy|1|50|20|125|Rare|shoots a magic beam at|100
-Kobold|1|200|60|80|Legendary|ambushes|100
-Goblin|2|200|50|90|Normal|throws a spear towards|100
-Mole|2|150|75|60|Rare|bites deeply into|100
-Angry Miner|2|300|50|250|Legendary|swings his pickaxe at|100
-Living Slime|3|250|90|100|Normal|jumps onto|100
-Hornet|3|300|50|200|Rare|stings|100
-Queen Bee(BOSS)|3|1000|50|150|Legendary|honey squirts|100
-Little Bee|3|50|20|100|Other|poisons|100
-Skeleton|4|400|70|100|Normal|throws a bone at|100
-Very Mad Bat|4|200|100|150|Rare|swoops down on|100
-Giant Worm|4|500|500|30|Legendary|consumes|100
-Demon|5|500|100|100|Normal|torments|100
-Cerberus|5|550|120|100|Rare|viciously bites|100
-Hell-Infused Dragon (BOSS)|5|3000|100|300|Legendary|fireballs|100
+Rock|0|50|0|0|Normal|does nothing to
+Golem|0|75|20|80|Rare|throws a rock at
+The Legendary Pebble|0|150|50|80|Legendary|sneezes at
+Possessed Gem|1|100|20|70|Normal|scratches
+Fairy|1|50|20|125|Rare|shoots a magic beam at
+Kobold|1|200|60|80|Legendary|ambushes
+Goblin|2|200|50|90|Normal|throws a spear towards
+Mole|2|150|80|60|Rare|bites deeply into
+Angry Miner|2|300|50|250|Legendary|swings his pickaxe at
+Living Slime|3|250|90|100|Normal|jumps onto
+Hornet|3|300|75|200|Rare|stings
+Queen Bee(BOSS)|3|1000|100|150|Legendary|honey squirts
+Little Bee|3|50|40|100|Other|poisons
+Skeleton|4|400|90|100|Normal|throws a bone at
+Very Mad Bat|4|200|120|150|Rare|swoops down on
+Giant Worm|4|500|500|20|Legendary|consumes
+Demon|5|500|150|100|Normal|torments
+Cerberus|5|550|200|100|Rare|viciously bites
+Hell-Infused Dragon (BOSS)|5|3000|150|150|Legendary|fireballs
