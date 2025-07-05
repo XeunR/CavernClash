@@ -130,7 +130,7 @@ class Fighter:
                     self.speed += 0.1
                 self.positive_effects[key_effect] -= 1
                 value_effect -= 1
-                self.negative_effects[key_effect] -= value_effect
+                self.positive_effects[key_effect] -= value_effect
                 print(f"{key_effect} - {value_effect} turns remaining.")
 
 
