@@ -1,7 +1,7 @@
 import time, random
 
-version = "v1.0.12"
-last_update = "04/07/2025"
+version = "v1.0.16"
+last_update = "05/07/2025"
 
 level = 0
 level_up_requirement = 0
@@ -217,7 +217,7 @@ while not result:
                     quantity_owned = inventory.get("Item Lootbox")
                     if quantity_owned is None:
                         quantity_owned = 0
-                    amount = random.randint(1, 6)
+                    amount = random.randint(1, 5)
                     quantity_owned += amount
                     inventory["Item Lootbox"] = quantity_owned
                     print(f"+{amount} Item Lootbox")
@@ -381,7 +381,7 @@ while not result:
                     if amount_to_open > 0:
                         try:
                             amount_to_open = int(amount_to_open)
-                            if amount_to_open >= inventory_lootbox.get(lootbox):
+                            if amount_to_open <= inventory_lootbox.get(lootbox):
                                 inventory_lootbox[lootbox] -= amount_to_open
                                 if inventory_lootbox[lootbox] <= 0:
                                     del inventory_lootbox[lootbox]
@@ -546,7 +546,7 @@ while not result:
                         print("Inventory - Refinement Stones:")
                         for key_inventory, value_inventory in inventory_refine.items():
                             print(f"{key_inventory}: {value_inventory}")
-                        print(f"What armour would you like to equip on {managing_character.name}? (Type name)")
+                        print(f"What stone would you like to equip on {managing_character.name}? (Type name)")
                         equip = input().title()
                         if equip in inventory.keys():
                             inventory[equip] -= 1
@@ -568,7 +568,7 @@ while not result:
                         print("Inventory - Refinement Stones:")
                         for key_inventory, value_inventory in inventory_refine.items():
                             print(f"{key_inventory}: {value_inventory}")
-                        print(f"What armour would you like to equip on {managing_character.name}? (Type name)")
+                        print(f"What stone would you like to equip on {managing_character.name}? (Type name)")
                         equip = input().title()
                         if equip in inventory.keys():
                             inventory[equip] -= 1
@@ -578,6 +578,8 @@ while not result:
                             print(f"{equip} successfully equipped.")
                         else:
                             print("Invalid input! This item is not in your inventory!")
+                    elif equipment_slot == "5":
+                        print("Action cancelled.")
                     else:
                         print("Invalid input! Select the number next to the character!")
                 except ValueError:
@@ -687,21 +689,24 @@ while not result:
                     slot = int(input())
                     try:
                         if slot in range(1, store.slots + 1):
-                            if store.check_single(slot):
-                                amount = 1
-                            else:
-                                print("How much of that item would you like to buy?")
-                                amount = int(input())
-                            time.sleep(1)
-                            print("----------------------------------------------------------------------------------")
-                            bought_item, price, buy_success = store.buy(slot, coins, amount)
-                            if buy_success:
-                                coins -= price
-                                quantity_owned = inventory.get(bought_item)
-                                if quantity_owned is None:
-                                    quantity_owned = 0
-                                quantity_owned += amount
-                                inventory[bought_item] = quantity_owned
+                            try:
+                                if store.check_single(slot):
+                                    amount = 1
+                                else:
+                                    print("How much of that item would you like to buy?")
+                                    amount = int(input())
+                                time.sleep(1)
+                                print("----------------------------------------------------------------------------------")
+                                bought_item, price, buy_success = store.buy(slot, coins, amount)
+                                if buy_success:
+                                    coins -= price
+                                    quantity_owned = inventory.get(bought_item)
+                                    if quantity_owned is None:
+                                        quantity_owned = 0
+                                    quantity_owned += amount
+                                    inventory[bought_item] = quantity_owned
+                            except IndexError:
+                                print("Invalid input! Please select a number!")
                         else:
                             print("Invalid input. Please select a valid amount.")
                     except ValueError:
@@ -745,3 +750,6 @@ if result == "Lose":
     time.sleep(1)
     print("----------------------------------------------------------------------------------")
     print("Game Over! You have been defeated in battle!")
+    print("Thank you for playing Cavern Clash.")
+    print(f"Your final score was: {xp}")
+    input()

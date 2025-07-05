@@ -120,14 +120,14 @@ class Fighter:
             if value_effect > 0:
                 if key_effect == "Alchemist Potion":
                     self.crit_rate += 0.15
-                    self.atk += self.base_atk * 0.15
-                    self.speed += 0.15
+                    self.atk += round(self.base_atk * 0.15)
+                    self.speed += round(self.base_speed * 0.15)
                 elif key_effect == "Commanded":
-                    self.crit_rate += 0.15
-                    self.atk += self.base_atk * 0.5
+                    self.crit_rate += 0.20
+                    self.atk += round(self.base_atk * 0.5)
                 elif key_effect == "Cleric's Faith":
-                    self.atk += self.base_atk * 0.6
-                    self.speed += 0.1
+                    self.atk += round(self.base_atk * 0.6)
+                    self.speed += round(self.base_speed * 0.1)
                 self.positive_effects[key_effect] -= 1
                 value_effect -= 1
                 self.positive_effects[key_effect] -= value_effect
@@ -163,8 +163,8 @@ class Ally(Fighter):
             self.base_atk += weapon_dict.get(self.weapon)
 
         if self.weapon_stone:
-            amplifier = self.weapon_stone[0][1]
-            buff = self.weapon_stone[1]
+            amplifier = self.weapon_stone.split()[0][1]
+            buff = self.weapon_stone.split()[1]
             if buff == "Critical":
                 self.base_crit_rate *= 1 + (0.05 * amplifier)
             elif buff == "Damage":
@@ -178,8 +178,8 @@ class Ally(Fighter):
             self.base_hp += armour_dict.get(self.armour)
 
         if self.armour_stone:
-            amplifier = self.armour_stone[0][1]
-            buff = self.armour_stone[1]
+            amplifier = self.armour_stone.split()[0][1]
+            buff = self.armour_stone.split()[1]
             if buff == "Critical":
                 self.base_crit_rate *= 1 + (0.05 * amplifier)
             elif buff == "Damage":
@@ -264,7 +264,7 @@ class Ally(Fighter):
         return skill_damage, crit_display
 
     def skill_big_booms(self):
-        skill_damage = round(self.atk * 1.75) + random.randint(-3, 3)
+        skill_damage = round(self.atk * 1.5) + random.randint(-3, 3)
         critical = random.random()
         crit_display = False
         if critical <= self.crit_rate:

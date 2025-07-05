@@ -2,7 +2,7 @@ Rock|0|50|0|0|Normal|does nothing to
 Golem|0|75|20|80|Rare|throws a rock at
 The Legendary Pebble|0|150|50|80|Legendary|sneezes at
 Possessed Gem|1|100|20|70|Normal|scratches
-Fairy|1|50|20|125|Rare|shoots a magic beam at
+Fairy|1|80|30|125|Rare|shoots a magic beam at
 Kobold|1|200|60|80|Legendary|ambushes
 Goblin|2|200|50|90|Normal|throws a spear towards
 Mole|2|150|80|60|Rare|bites deeply into

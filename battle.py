@@ -315,8 +315,9 @@ class BattleManager:
                         time.sleep(1)
                         print("----------------------------------------------------------------------------------")
                         friend.positive_effects["Commanded"] = 3
+                        friend.next_action = self.action_value + 1
                         print(f"{character.name} used {character.skill_name} on {friend.name}.")
-                        print(f"Increased CRIT of {friend.name} by 30% and ATK by 50% for 3 turns.")
+                        print(f"Increased CRIT of {friend.name} by 20% and ATK by 50% for 3 turns.")
 
                     # Nurse
                     elif character.skill_name == "Heal":
@@ -450,6 +451,7 @@ class BattleManager:
                         target.lose_health(damage)
                         print(f"{character.name} ruthlessly stings {target.name}.")
                         print(f"Dealt {damage} damage.")
+
                 elif character.normal_name == "fireballs":
                     character.attack_sequence += 1
                     if character.attack_sequence == 4:

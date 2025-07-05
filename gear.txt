@@ -14,12 +14,12 @@ Miner's Pickaxe|Weapon|Normal|35|7|Does a lot of damage because it's sharp.
 Miner's Coveralls|Armour|Normal|70|7|Perfect for these underground situations.
 Diamond Wand|Weapon|SuperRare|50|7|So much power...
 Hazmat Suit|Armour|SuperRare|100|7|Don't think it was intended for this...
-Gloamsteel Dagger|Weapon|Common|40|8|Gloamsteel is very abundant in these mines.
-Gloamsteel Plate|Armour|Common|80|8|Gloamsteel is very abundant in these mines.
+Gloamsteel Dagger|Weapon|Normal|40|8|Gloamsteel is very abundant in these mines.
+Gloamsteel Plate|Armour|Normal|80|8|Gloamsteel is very abundant in these mines.
 Mole's Claws|Weapon|Rare|50|9|Well that's not very nice...
 Mushroom Armour|Armour|Rare|100|9|The mushrooms here sure are strong.
-Lanternblade|Weapon|Common|55|10|Emits light while you slice. Smart!
-Moleskin Cloak|Armour|Common|110|10|Extremely durable in these narrow tunnels.
+Lanternblade|Weapon|Normal|55|10|Emits light while you slice. Smart!
+Moleskin Cloak|Armour|Normal|110|10|Extremely durable in these narrow tunnels.
 Adamant Axe|Weapon|Rare|60|12|Forged from an incredibly rare ore.
 Adamant Chestplate|Armour|Rare|120|12|Forged from an incredibly rare ore.
 Infinitely Sharp Rock|Weapon|Legendary|90|12|Cuts anything to the touch.
