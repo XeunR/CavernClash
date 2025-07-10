@@ -1,13 +1,13 @@
 import time, random
 
-version = "v1.0.16"
-last_update = "05/07/2025"
+version = "v1.1.0"
+last_update = "09/07/2025"
 
+# Initialisation of variables
 level = 0
 level_up_requirement = 0
 xp = 0
 coins = 0
-dead = False
 
 inventory = {"Stick": 1,
              "Cloth Robe": 1}
@@ -22,45 +22,63 @@ bee_defeated = False
 dragon_kills = 0
 dragon_defeated = False
 
+# Loading all files
 def load():
-    with open("ally.txt", "r") as allies:
-        allies_dict = {}
-        for ally in allies:
-            ally_list = ally.strip().split("|")
-            allies_dict[ally_list[0]] = [ally_list[1], int(ally_list[2]), int(ally_list[3]), int(ally_list[4]),
-                                         ally_list[5], int(ally_list[6]), ally_list[7], ally_list[8], ally_list[9]]
-        # Structure of ally.txt: Name|Role|Base HP|Base ATK|Base SPEED|
-        #                        Normal Attack Name|Damage %|Normal Attack Description|Skill Name|Skill Description
+    try:
+        with open("ally.txt", "r") as allies:
+            allies_dict = {}
+            for ally in allies:
+                ally_list = ally.strip().split("|")
+                allies_dict[ally_list[0]] = [ally_list[1], int(ally_list[2]), int(ally_list[3]), int(ally_list[4]),
+                                             ally_list[5], int(ally_list[6]), ally_list[7], ally_list[8], ally_list[9]]
+            # Structure of ally.txt: Name|Role|Base HP|Base ATK|Base SPEED|
+            #                        Normal Attack Name|Damage %|Normal Attack Description|Skill Name|Skill Description
+    except ValueError:
+        print("Error: ally.txt is missing or malformed!")
+        print("Press any key to close the program.")
+        raise SystemExit
+    try:
+        with open("enemy.txt", "r") as enemies:
+            enemies_dict = {}
+            for enemy in enemies:
+                enemy_list = enemy.strip().split("|")
+                enemies_dict[enemy_list[0]] = [int(enemy_list[1]), int(enemy_list[2]), int(enemy_list[3]),
+                                               int(enemy_list[4]), enemy_list[5], enemy_list[6]]
+            # Structure of enemy.txt: Name|Biome Number|Base HP|Base ATK|
+            #                         Base SPEED|Rarity|Normal Attack Name
+    except ValueError:
+        print("Error: enemy.txt is missing or malformed!")
+        print("Press any key to close the program.")
+        raise SystemExit
+    try:
+        with open("gear.txt", "r") as gears:
+            weapon_dict = {}
+            armour_dict = {}
+            for gear in gears:
+                gear_list = gear.strip().split("|")
+                if gear_list[1] == "Weapon":
+                    weapon_dict[gear_list[0]] = [gear_list[2], int(gear_list[3]), int(gear_list[4]), gear_list[5]]
+                elif gear_list[1] == "Armour":
+                    armour_dict[gear_list[0]] = [gear_list[2], int(gear_list[3]), int(gear_list[4]), gear_list[5]]
+            # Structure of gear.txt: Name|Type|Rarity|HP/ATK|Level Requirement|Notes
+    except ValueError:
+        print("Error: gear.txt is missing or malformed!")
+        print("Press any key to close the program.")
+        raise SystemExit
+    try:
+        with open("items.txt", "r") as items:
+            items_dict = {}
+            for item in items:
+                item_list = item.strip().split("|")
+                items_dict[item_list[0]] = [item_list[1], item_list[2], int(item_list[3]), item_list[4]]
+            # Structure of items.txt: Name|Type|Rarity|Level Requirement|Notes
+            # Weapons and armour are NOT item objects
 
-    with open("enemy.txt", "r") as enemies:
-        enemies_dict = {}
-        for enemy in enemies:
-            enemy_list = enemy.strip().split("|")
-            enemies_dict[enemy_list[0]] = [int(enemy_list[1]), int(enemy_list[2]), int(enemy_list[3]),
-                                           int(enemy_list[4]), enemy_list[5], enemy_list[6]]
-        # Structure of enemy.txt: Name|Biome Number|Base HP|Base ATK|
-        #                         Base SPEED|Rarity|Normal Attack Name
-
-    with open("gear.txt", "r") as gears:
-        weapon_dict = {}
-        armour_dict = {}
-        for gear in gears:
-            gear_list = gear.strip().split("|")
-            if gear_list[1] == "Weapon":
-                weapon_dict[gear_list[0]] = [gear_list[2], int(gear_list[3]), int(gear_list[4]), gear_list[5]]
-            elif gear_list[1] == "Armour":
-                armour_dict[gear_list[0]] = [gear_list[2], int(gear_list[3]), int(gear_list[4]), gear_list[5]]
-        # Structure of gear.txt: Name|Type|Rarity|HP/ATK|Level Requirement|Notes
-
-    with open("items.txt", "r") as items:
-        items_dict = {}
-        for item in items:
-            item_list = item.strip().split("|")
-            items_dict[item_list[0]] = [item_list[1], item_list[2], int(item_list[3]), item_list[4]]
-        # Structure of items.txt: Name|Type|Rarity|Level Requirement|Notes
-        # Weapons and armour are NOT item objects
-
-    return allies_dict, enemies_dict, weapon_dict, armour_dict, items_dict
+        return allies_dict, enemies_dict, weapon_dict, armour_dict, items_dict
+    except ValueError:
+        print("Error: items.txt is missing or malformed!")
+        print("Press any key to close the program.")
+        raise SystemExit
 
 
 def find_enemy(biome_no, enemy_rarity, enemies_dict):
@@ -71,15 +89,14 @@ def find_enemy(biome_no, enemy_rarity, enemies_dict):
     print("Press any key to close the program.")
     raise SystemExit
 
-
 # Start game
 print("----------------------------------------------------------------------------------")
 print(f"Cavern Clash {version}")
 print(f"Last update: {last_update}")
 print("Please wait while we load the game.")
 print("If this takes a long time, then the game will not run smoothly.")
-import battle, shop, fighter
 all_allies, all_enemies, all_weapons, all_armour, all_items = load()
+import battle, shop, fighter
 current_team = [fighter.Ally("Adventurer", level), fighter.Ally("Adventurer", level), fighter.Ally("Adventurer", level)]
 store = shop.Shop()
 print("Game loaded successfully.")
@@ -87,50 +104,29 @@ name = input("Begin by entering your name: ")
 time.sleep(1)
 print("----------------------------------------------------------------------------------")
 print(f"Welcome to Cavern Clash, {name}!")
-print(f"Would you like to play through the tutorial?")
-print("(1) Yes | (2) No")
-tutorial_query = input()
-if tutorial_query == "1":
-    time.sleep(1)
-    print("----------------------------------------------------------------------------------")
-    p1 = fighter.Ally("Mercenary", level)
-    p2 = fighter.Ally("Mercenary", level)
-    p3 = fighter.Ally("Mercenary", level)
-    e1 = fighter.Enemy("Rock", level)
-    e2 = fighter.Enemy("Golem", level)
-    e3 = fighter.Enemy("Rock", level)
-    tutorial = battle.BattleManager([p1, p2, p3, e1, e2, e3], 0)
-    result = None
-    while not result:
-        result = tutorial.check_death()
-        actions = tutorial.calculate_turn()
-        for guy in actions:
-            guy.apply_effects()
-            result = tutorial.check_death()
-            if result:
-                break
-            if guy in tutorial.characters:
-                tutorial.turn(guy)
 
+# The player will be in this while loop the entire time until they lose a battle
 result = None
 while not result:
     time.sleep(1)
     print("----------------------------------------------------------------------------------")
     print(f"Your current location: {current_biome}")
     print("Action Select:")
-    print("(1) Explore | (2) Inventory and Crafting | (3) Team Configuration | (4) Shop")
+    print("(1) Explore | (2) Inventory and Lootboxes | (3) Team Configuration | (4) Shop")
     location = biomes.index(current_biome)
     if location == 0:
         print(f"(R / Right) Travel to {biomes[location + 1]}")
     elif location == 5:
         print(f"(L / Left) Travel to {biomes[location - 1]} | (R / Right) Travel to {biomes[location + 1]}")
-        # Dungeon confirmation message
+        # Travel to the next biome (right)
     else:
         print(f"(L / Left) Travel to {biomes[location - 1]} | (R / Right) Travel to {biomes[location + 1]}")
+        # Travel to the previous biome (left)
     move = input()
     time.sleep(1)
     print("----------------------------------------------------------------------------------")
-    if move == "1":
+
+    if move == "1": # Battle
         if len(current_team) != 3:
             print("Sorry, you need 3 characters on your team to go exploring.")
             print("You can manage your characters in the Team Configuration (3)")
@@ -139,17 +135,17 @@ while not result:
             characters = []
             for player_character in current_team:
                 characters.append(player_character)
-            biome_number = biomes.index(current_biome)
-            normal_enemy = find_enemy(biome_number, "Normal", all_enemies)
-            rare_enemy = find_enemy(biome_number, "Rare", all_enemies)
-            legendary_enemy = find_enemy(biome_number, "Legendary", all_enemies)
+            location = biomes.index(current_biome)
+            normal_enemy = find_enemy(location, "Normal", all_enemies)
+            rare_enemy = find_enemy(location, "Rare", all_enemies)
+            legendary_enemy = find_enemy(location, "Legendary", all_enemies)
             reward_score = 1
-            for enemy_selection in range(3):
+            for e in range(3):
                 enemy_roll = random.random()
-                if enemy_roll <= (0.7 - 0.05 * biome_number):
+                if enemy_roll <= (0.7 - 0.04 * location):
                     characters.append(fighter.Enemy(normal_enemy, level))
                     reward_score += 1
-                elif enemy_roll <= (0.99 - 0.02 * biome_number):
+                elif enemy_roll <= (0.99 - 0.01 * location):
                     characters.append(fighter.Enemy(rare_enemy, level))
                     reward_score += 3
                 else:
@@ -159,19 +155,21 @@ while not result:
                         bee_kills += 1
                     if legendary_enemy == "Hell-Infused Dragon (BOSS)":
                         dragon_kills += 1
-            encounter = battle.BattleManager(characters, level)
+            encounter = battle.BattleManager(characters, level) # Starting battle
             result = None
+            # Battle loop
             while not result:
-                result = encounter.check_death()
-                actions = encounter.calculate_turn()
-                for guy in actions:
-                    guy.apply_effects()
-                    result = encounter.check_death()
-                    if result:
+                result = encounter.check_death() # Determine whether any characters have died
+                actions = encounter.calculate_turn() # Check whose turn it is
+                for guy in actions: # actions (list): The characters which are taking their turn
+                    guy.apply_effects() # Apply positive and negative effects
+                    result = encounter.check_death() # Check if they have died to the effects
+                    if result: # Check if battle has finished
                         break
-                    if guy in encounter.characters:
-                        encounter.turn(guy)
-            if result == "Win":
+                    # If the character is still alive and their speed hasn't been modified, it will be their turn
+                    if guy in encounter.characters and guy.next_action == encounter.action_value:
+                        encounter.turn(guy) # Taking turn
+            if result == "Win": # Defeated all enemies
                 time.sleep(1)
                 print("----------------------------------------------------------------------------------")
                 print("Congratulations, you have survived another battle!")
@@ -179,12 +177,11 @@ while not result:
                 final_reward_score = random.randint(4, reward_score + 1)
                 # Range of final_reward_score: 4 to 31
                 # However as legendary enemies are really rare, final_reward_score usually lies between 4 and 10
-                reward_coins = 10 * reward_score * (biome_number + 1) * 2
-                # Doubled coin reward until materials are introduced
+                reward_coins = 10 * reward_score * (location + 1) * 2
+                # Doubled coin reward until materials are introduced (Feature released Cavern Clash v1.2)
                 coins += reward_coins
-                reward_xp = 5 * (biome_number + 1) + random.randint(-3, 3)
-                reward_xp += reward_score - 4
-                xp += reward_xp
+                reward_xp = 5 * (2 * location + 1) + (final_reward_score - 4)
+                xp += reward_xp # Score reward
                 print("Rewards:")
                 print(f"+{reward_coins} coins")
                 print(f"+{reward_xp} score")
@@ -222,9 +219,10 @@ while not result:
                     inventory["Item Lootbox"] = quantity_owned
                     print(f"+{amount} Item Lootbox")
 
+                # Determining
                 while xp >= level_up_requirement:
                     level += 1
-                    level_up_requirement += 10 * level
+                    level_up_requirement += 5 * (level + 1)
                     print(f"Level up! {level - 1} -> {level}")
                     print(f"Base HP of all characters +1")
                     if level == 1:
@@ -247,6 +245,7 @@ while not result:
                         # print("New feature unlocked: Selling weapons and armour")
                         # print("Your unneeded gear can now be sold for extra coins.")
                         # store.buy_gear = True
+                        # Feature released in Cavern Clash v1.2
                     elif level == 15:
                         print("New area unlocked: Mossy Caves")
                         unlocked_biomes.append("Mossy Caves")
@@ -259,13 +258,13 @@ while not result:
                         print("New feature unlocked: Extra shop slot (3/3)")
                         store.slots += 1
                         unlocked_biomes.append("Underworld")
-                    # Ancient Dungeons unlocks via bossfight
+                    # Ancient Dungeons unlocks via bossfight (Feature released in Cavern Clash v1.2)
                 print(f"For your next level up, you will need {level_up_requirement - xp} more score.")
-                if bee_kills > 0 and bee_defeated == False:
+                if bee_kills > 0 and bee_defeated == False: # Check if the first bee has been defeated
                     bee_defeated = True
                     print("New area unlocked: Deep Caverns")
                     unlocked_biomes.append("Deep Caverns")
-                if dragon_kills > 0 and dragon_defeated == False:
+                if dragon_kills > 0 and dragon_defeated == False: # Check if the first dragon has been defeated
                     dragon_defeated = True
                     print("----------------------------------------------------------------------------------")
                     print("The Hell-Infused Dragon lays at your feet.")
@@ -273,10 +272,13 @@ while not result:
                     print("Congratulations, you have beaten the game!")
                     print("Thank you for playing Cavern Clash!")
                     coins += 1000000000
+                # Give the player a restocking attempt and reset the battle
                 store.restock_attempts = 1
                 result = None
-    elif move == "2":
+
+    elif move == "2": # Inventory
         left = False
+        # Inventory loop until the user leaves
         while not left:
             print("Inventory")
             print(f"Coins: {coins}")
@@ -287,7 +289,8 @@ while not result:
             print("Warning: Viewing your entire inventory will output a lot of information!")
             print("(1) View Specific Item | (2) View Entire Inventory | (3) Open a lootbox | (4) Exit")
             inv_action = input()
-            if inv_action == "1":
+
+            if inv_action == "1": # View a specific item that doesn't necessary have to be in their inventory
                 time.sleep(1)
                 print("----------------------------------------------------------------------------------")
                 print("Please type the name of the item you would like to view.")
@@ -313,13 +316,15 @@ while not result:
                 print(f"Quantity owned: {inventory.get(inventory_query)}")
                 time.sleep(1)
                 print("----------------------------------------------------------------------------------")
-            elif inv_action == "2":
+
+            elif inv_action == "2": # View contents of player's inventory
                 inventory = dict(sorted(inventory.items()))
                 inventory_weapons = {}
                 inventory_armour = {}
                 inventory_refine = {}
                 inventory_lootbox = {}
                 inventory_material = {}
+                # Displaying sorted items
                 for key_inventory, value_inventory in inventory.items():
                     if key_inventory in all_weapons:
                         inventory_weapons[key_inventory] = value_inventory
@@ -349,7 +354,8 @@ while not result:
                     print(f"{key_inventory} - {value_inventory}")
                 time.sleep(1)
                 print("----------------------------------------------------------------------------------")
-            elif inv_action == "3":
+
+            elif inv_action == "3": # Opening lootboxes
                 inventory_lootbox = {}
                 print("Your lootboxes:")
                 for key_inventory, value_inventory in inventory.items():
@@ -449,14 +455,18 @@ while not result:
                 time.sleep(1)
                 print("----------------------------------------------------------------------------------")
 
-
             # elif inv_action == "4":
-                # Crafting will be introduced later
-            else:
+                # Crafting will be introduced Cavern Clash v1.2
+                # It will be the backbone of gaining gear, meaning shop items will become much more expensive
+
+            else: # Leaving the shop
                 left = True
-    elif move == "3":
+
+    elif move == "3": # Character management
         left = False
+        # Character management loop until the user leaves
         while not left:
+            # Display character details
             print("Team Configuration")
             inventory = dict(sorted(inventory.items()))
             inventory_weapons = {}
@@ -482,7 +492,8 @@ while not result:
                 print(display.skill_description)
             print("(1) Manage character equipment | (2) Replace character | (3) Exit")
             config_action = input()
-            if config_action == "1":
+
+            if config_action == "1": # Changing character equipment
                 print("----------------------------------------------------------------------------------")
                 print("What character would you like to change the equipment for?")
                 print(f"(1) {current_team[0].name} | (2) {current_team[1].name} | (3) {current_team[2].name}")
@@ -491,7 +502,8 @@ while not result:
                     print("What would you like to equip/unequip?")
                     print("(1) Weapon | (2) Armour | (3) Weapon Stone | (4) Armour Stone | (5) Cancel")
                     equipment_slot = input()
-                    if equipment_slot == "1":
+
+                    if equipment_slot == "1": # Changing character's weapon
                         if managing_character.weapon:
                             print(f"Unequipping {managing_character.weapon}...")
                             if managing_character.weapon in inventory.keys():
@@ -513,7 +525,7 @@ while not result:
                         else:
                             print("Invalid input! This item is not in your inventory!")
 
-                    elif equipment_slot == "2":
+                    elif equipment_slot == "2": # Changing character's armour
                         if managing_character.armour:
                             print(f"Unequipping {managing_character.armour}...")
                             if managing_character.armour in inventory.keys():
@@ -535,7 +547,7 @@ while not result:
                         else:
                             print("Invalid input! This item is not in your inventory!")
 
-                    elif equipment_slot == "3":
+                    elif equipment_slot == "3": # Changing character's weapon stone
                         if managing_character.weapon_stone:
                             print(f"Unequipping {managing_character.weapon_stone}...")
                             if managing_character.weapon_stone in inventory.keys():
@@ -557,7 +569,7 @@ while not result:
                         else:
                             print("Invalid input! This item is not in your inventory!")
 
-                    elif equipment_slot == "4":
+                    elif equipment_slot == "4": # Changing character's armour stone
                         if managing_character.armour_stone:
                             print(f"Unequipping {managing_character.armour_stone}...")
                             if managing_character.armour_stone in inventory.keys():
@@ -578,18 +590,17 @@ while not result:
                             print(f"{equip} successfully equipped.")
                         else:
                             print("Invalid input! This item is not in your inventory!")
-                    elif equipment_slot == "5":
-                        print("Action cancelled.")
+
                     else:
-                        print("Invalid input! Select the number next to the character!")
+                        print("Action cancelled.")
                 except ValueError:
                     print("Invalid input! Select the corresponding number!")
                 except IndexError:
                     print("Invalid input! Select the number next to one of your characters!")
                 time.sleep(1)
                 print("----------------------------------------------------------------------------------")
-            # Switching character
-            elif config_action == "2":
+
+            elif config_action == "2": # Switching character
                 print("----------------------------------------------------------------------------------")
                 print("What character would you like to replace?")
                 print(f"(1) {current_team[0].name} | (2) {current_team[1].name} | (3) {current_team[2].name}")
@@ -599,8 +610,10 @@ while not result:
                     name_character_list = []
                     for owned_character in owned_character_list:
                         name_character_list.append(owned_character.name)
+                    # name_character_list is character_list, but with the object's name for display
                     sorted_character_list = sorted(name_character_list)
                     print("\n".join(sorted_character_list))
+
                     print("What character would you like to add to your team? (Type name)")
                     insert_character = input().title()
                     managing_character = None
@@ -612,6 +625,7 @@ while not result:
                                 break
                         time.sleep(1)
                         print("----------------------------------------------------------------------------------")
+                        # Display details of new character
                         print(insert_character)
                         managing_character.calculate_equipment(level)
                         print(f"Base HP: {managing_character.base_hp}, Base ATK: {managing_character.base_atk}, "
@@ -623,10 +637,13 @@ while not result:
                         print(f"Confirm replacement of {replaced_character.name} with {managing_character.name}?")
                         print("(1) Yes | (2) No")
                         confirm = input()
-                        if confirm == "1":
+
+                        if confirm == "1": # Confirming character switch
                             current_team.insert(current_team.index(replaced_character), managing_character)
                             current_team.remove(replaced_character)
+                            owned_character_list.append(replaced_character)
                             print("Replacement successful.")
+                            # Unequipping all gear from replaced character so it doesn't look like it disappeared
                             if replaced_character.weapon:
                                 if replaced_character.weapon in inventory.keys():
                                     inventory[replaced_character.weapon] += 1
@@ -669,25 +686,28 @@ while not result:
                 print("----------------------------------------------------------------------------------")
             else:
                 left = True
-    elif move == "4":
-        if level == 0:
+
+    elif move == "4": # Shop
+        if level <= 0: # Shop unlocks at level 1
             print("Sorry, you have not unlocked the shop yet.")
             print("Please come back after reaching level 1.")
         else:
             left = False
+            # Shop loop
             while not left:
                 print("Shop")
                 print(f"Coins: {coins}")
                 print(f"Restock attempts: {store.restock_attempts}")
                 print("Current sales:")
-                store.display()
+                store.display() # Display current trades
                 print("Action Select:")
                 print("(1) Buy item | (2) Restock | (3) Leave")
                 shop_action = input()
-                if shop_action == "1":
+
+                if shop_action == "1": # Making a purchase
                     print("Select the number next to the item you want to buy, or anything else to cancel")
-                    slot = int(input())
                     try:
+                        slot = input()
                         if slot in range(1, store.slots + 1):
                             try:
                                 if store.check_single(slot):
@@ -714,7 +734,8 @@ while not result:
                     time.sleep(1)
                     print("----------------------------------------------------------------------------------")
 
-                elif shop_action == "2":
+                elif shop_action == "2": # Restock trades
+                    # Trades no not automatically restock after a battle, allowing the player to save up for something
                     print("----------------------------------------------------------------------------------")
                     if store.restock_attempts == 1:
                         store.restock(level)
@@ -726,7 +747,8 @@ while not result:
                     print("----------------------------------------------------------------------------------")
                 else:
                     left = True
-    elif move.title() == "L" or move.title() == "Left":
+
+    elif move.title() == "L" or move.title() == "Left": # Moving left on the biome list
         if location > 0:
             current_biome = biomes[location - 1]
             print(f"Moving to {current_biome}...")
@@ -734,7 +756,8 @@ while not result:
             print("Navigation successful.")
         else:
             print("Invalid input! Theres nothing to the left!")
-    elif move.title() == "R" or move.title() == "Right":
+
+    elif move.title() == "R" or move.title() == "Right": # Moving right on the biome list
         if biomes[location + 1] in unlocked_biomes:
             current_biome = biomes[location + 1]
             print(f"Moving to {current_biome}...")
@@ -746,10 +769,11 @@ while not result:
     else:
         print("Invalid input! Please try again.")
 
-if result == "Lose":
+if result == "Lose": # Defeated in battle = Game Over
     time.sleep(1)
     print("----------------------------------------------------------------------------------")
     print("Game Over! You have been defeated in battle!")
-    print("Thank you for playing Cavern Clash.")
+    print(f"Thank you, {name} for playing Cavern Clash.")
     print(f"Your final score was: {xp}")
+    print("Press anything to exit.")
     input()

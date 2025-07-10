@@ -2,6 +2,7 @@ import random
 ID = 0
 # ID is used to distinguish identical characters
 
+# Opening files again to retrieve all the data required to construct characters
 with open("ally.txt", "r") as allies:
     allies_dict = {}
     for ally in allies:
@@ -31,6 +32,7 @@ with open("gear.txt", "r") as gears:
 
 
 class Fighter:
+    # This class contains all information related to characters, all which will be used in a battle
     def __init__(self, name, level):
         global ID
         self.name = name
@@ -43,10 +45,11 @@ class Fighter:
         self.id = ID
         ID += 1
 
-        if name in allies_dict:
+        if name in allies_dict: # Retrieving details of friendly characters
             stats = allies_dict[name]
-            self.role = stats[0]
-            if self.role == "DamageSingle" or self.role == "DamageMulti":
+            role = stats[0]
+            # DamageSingle and DamageMulti have higher critical chance
+            if role == "DamageSingle" or role == "DamageMulti":
                 self.base_crit_rate = 0.1
             else:
                 self.base_crit_rate = 0.05
@@ -59,7 +62,7 @@ class Fighter:
             self.skill_name = stats[7]
             self.skill_description = stats[8]
 
-        elif name in enemies_dict:
+        elif name in enemies_dict: # Retrieving enemy details
             stats = enemies_dict[name]
             self.base_hp = stats[1]
             self.base_atk = stats[2]
@@ -75,18 +78,21 @@ class Fighter:
         except ZeroDivisionError:
             self.next_action = -1
 
+    # When a character takes damage
     def lose_health(self, health_lost):
         self.hp -= health_lost
         if self.hp <= 0:
             self.hp = 0
 
+    # Applying positive or negative effects before a character takes their turn
     def apply_effects(self):
         self.atk = self.base_atk
         self.speed = self.base_speed
         if self.__class__.__name__ == "Ally":
             self.crit_rate = self.base_crit_rate
 
-        for key_effect, value_effect in self.negative_effects.keys():
+        # Negative effects
+        for key_effect, value_effect in self.negative_effects.items():
             if value_effect > 0:
                 if key_effect == "Poisoned":
                     self.lose_health(10)
@@ -113,9 +119,13 @@ class Fighter:
                     except ZeroDivisionError:
                         self.next_action = -1
                 value_effect -= 1
-                self.negative_effects[key_effect] -= value_effect
-                print(f"{key_effect} - {value_effect} turns remaining.")
+                if value_effect == 0:
+                    print(f"{key_effect} has wore off.")
+                else:
+                    self.negative_effects[key_effect] = value_effect
+                    print(f"{key_effect} - {value_effect} turn(s) remaining.")
 
+        # Positive effects
         for key_effect, value_effect in self.positive_effects.items():
             if value_effect > 0:
                 if key_effect == "Alchemist Potion":
@@ -126,18 +136,22 @@ class Fighter:
                     self.crit_rate += 0.20
                     self.atk += round(self.base_atk * 0.5)
                 elif key_effect == "Cleric's Faith":
-                    self.atk += round(self.base_atk * 0.6)
+                    self.atk += round(self.base_atk * 0.4)
                     self.speed += round(self.base_speed * 0.1)
-                self.positive_effects[key_effect] -= 1
                 value_effect -= 1
-                self.positive_effects[key_effect] -= value_effect
-                print(f"{key_effect} - {value_effect} turns remaining.")
+                if value_effect == 0:
+                    print(f"{key_effect} has wore off.")
+                else:
+                    self.positive_effects[key_effect] = value_effect
+                    print(f"{key_effect} - {value_effect} turn(s) remaining.")
+
+
 
 
 class Ally(Fighter):
+    # For friendly characters only
     def __init__(self, name, level):
         super().__init__(name, level)
-        self.crit_rate = None
 
     # Before a battle, the stats of each character will be reset
     def calculate_equipment(self, level):
@@ -145,8 +159,8 @@ class Ally(Fighter):
         self.name = self.name.strip("②③")
 
         stats = allies_dict[self.name]
-        self.role = stats[0]
-        if self.role == "DamageSingle" or self.role == "DamageMulti":
+        role = stats[0]
+        if role == "DamageSingle" or role == "DamageMulti":
             self.base_crit_rate = 0.1
         else:
             self.base_crit_rate = 0.05
@@ -158,47 +172,53 @@ class Ally(Fighter):
         self.normal_description = stats[6]
         self.skill_name = stats[7]
         self.skill_description = stats[8]
+        self.positive_effects = {}
+        self.negative_effects = {}
 
         if self.weapon:
             self.base_atk += weapon_dict.get(self.weapon)
 
         if self.weapon_stone:
-            amplifier = self.weapon_stone.split()[0][1]
+            amplifier = int(self.weapon_stone.split()[0][1])
             buff = self.weapon_stone.split()[1]
             if buff == "Critical":
-                self.base_crit_rate *= 1 + (0.05 * amplifier)
+                self.base_crit_rate += 0.05 * amplifier
             elif buff == "Damage":
-                self.base_atk *= 1 + (0.05 * amplifier)
+                self.base_atk += round(self.base_atk * 0.05 * amplifier)
             elif buff == "Health":
-                self.base_hp *= 1 + (0.05 * amplifier)
+                self.base_hp += round(self.base_hp * 0.05 * amplifier)
             elif buff == "Swiftness":
-                self.base_speed *= 1 + (0.05 * amplifier)
+                self.base_speed += 5 * amplifier
 
         if self.armour:
             self.base_hp += armour_dict.get(self.armour)
 
         if self.armour_stone:
-            amplifier = self.armour_stone.split()[0][1]
+            amplifier = int(self.armour_stone.split()[0][1])
             buff = self.armour_stone.split()[1]
             if buff == "Critical":
-                self.base_crit_rate *= 1 + (0.05 * amplifier)
+                self.base_crit_rate += 0.05 * amplifier
             elif buff == "Damage":
-                self.base_atk *= 1 + (0.05 * amplifier)
+                self.base_atk += round(self.base_atk * 0.05 * amplifier)
             elif buff == "Health":
-                self.base_hp *= 1 + (0.05 * amplifier)
+                self.base_hp += round(self.base_hp * 0.05 * amplifier)
             elif buff == "Swiftness":
-                self.base_speed *= 1 + (0.05 * amplifier)
+                self.base_speed += 5 * amplifier
 
+        # At the start of a battle, all stats = base stats
+        # Usually, base stats remain the same
         self.hp = self.base_hp
         self.atk = self.base_atk
         self.speed = self.base_speed
         self.crit_rate = self.base_crit_rate
 
+        # Calculating their turnn
         try:
             self.next_action = round(10000 / self.speed)
         except ZeroDivisionError:
             self.next_action = -1
 
+    # Normal attack
     def normal(self):
         normal_damage = round(self.atk * self.normal_damage / 100) + random.randint(-3, 3)
         critical = random.random()
@@ -283,10 +303,12 @@ class Ally(Fighter):
 
 
 class Enemy(Fighter):
+    # For enemy characters only
     def __init__(self, name, level):
         super().__init__(name, level)
         self.attack_sequence = 0
 
+    # Normal attack, special attacks are defined in battle.py
     def normal(self):
         normal_damage = self.atk + random.randint(-5, 5)
         return normal_damage

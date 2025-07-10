@@ -8,15 +8,15 @@ Gem Studded Staff|Weapon|Normal|12|3|A very shiny wand.
 Gem Studded Robe|Armour|Normal|24|3|So bright it lights up the caves.
 Gemstone Sword|Weapon|Normal|20|5|Completely made of gemstones.
 Gemstone Armour|Armour|Normal|40|5|This would sell for so much.
-Gemologist's Calipers|Weapon|Rare|30|5|Why is this a weapon???
-Gemologist's Exploring Gear|Armour|Rare|60|5|For the ultimate gem enthusiast.
-Miner's Pickaxe|Weapon|Normal|35|7|Does a lot of damage because it's sharp.
-Miner's Coveralls|Armour|Normal|70|7|Perfect for these underground situations.
+Gemologist Calipers|Weapon|Rare|30|5|Why is this a weapon???
+Gemologist Exploring Gear|Armour|Rare|60|5|For the ultimate gem enthusiast.
+Miner Pickaxe|Weapon|Normal|35|7|Does a lot of damage because it's sharp.
+Miner Coveralls|Armour|Normal|70|7|Perfect for these underground situations.
 Diamond Wand|Weapon|SuperRare|50|7|So much power...
 Hazmat Suit|Armour|SuperRare|100|7|Don't think it was intended for this...
 Gloamsteel Dagger|Weapon|Normal|40|8|Gloamsteel is very abundant in these mines.
 Gloamsteel Plate|Armour|Normal|80|8|Gloamsteel is very abundant in these mines.
-Mole's Claws|Weapon|Rare|50|9|Well that's not very nice...
+Mole Claws|Weapon|Rare|50|9|Well that's not very nice...
 Mushroom Armour|Armour|Rare|100|9|The mushrooms here sure are strong.
 Lanternblade|Weapon|Normal|55|10|Emits light while you slice. Smart!
 Moleskin Cloak|Armour|Normal|110|10|Extremely durable in these narrow tunnels.
@@ -49,18 +49,18 @@ Expedition Robe|Armour|Normal|300|25|Essential for Deep Cavern travel.
 Obsidian Knife|Weapon|Rare|170|25|Primitive but effective.
 Scalemail|Armour|Rare|340|25|The blacksmith spent a lot of time on this.
 Very Long Sword|Weapon|Legendary|200|27|30m long!
-Giant's Armour|Armour|Legendary|400|27|Size XXXXXXL.
+Giant Armour|Armour|Legendary|400|27|Size XXXXXXL.
 Explosive Crossbow|Weapon|Rare|180|27|No, the crossbow doesn't explode.
 Battleplate|Armour|Rare|360|27|Projectiles don't even leave a dent.
-Fireman's Axe|Weapon|SuperRare|190|28|The tool for getting out of tough situations.
-Fireman's Uniform|Armour|SuperRare|380|28|Completely resistant to heat and fire.
+Fireman Axe|Weapon|SuperRare|190|28|The tool for getting out of tough situations.
+Fireman Uniform|Armour|SuperRare|380|28|Completely resistant to heat and fire.
 Dynamite|Weapon|Rare|195|29|Watch out when throwing these.
-Volcanologist's Gear|Armour|Rare|390|29|You need something to protect against all the lava.
+Volcanologist Gear|Armour|Rare|390|29|You need something to protect against all the lava.
 Inferno|Weapon|Normal|200|30|A sword forged from pure fire.
 Hellstone Armour|Armour|Normal|400|30|Smelted from the riches of the underworld.
 Demon Scythe|Weapon|Rare|210|30|Channels the magical power of demons.
 Dragon Wings|Armour|Rare|420|30|The fireproof scales are impenetrable, allowing the user to fly.
-Craftsman's Blade|Weapon|SuperRare|230|30|The hardest weapon to forge.
-Craftsman's Armour|Armour|SuperRare|460|30|The hardest armour to forge.
+Craftsman Blade|Weapon|SuperRare|230|30|The hardest weapon to forge.
+Craftsman Armour|Armour|SuperRare|460|30|The hardest armour to forge.
 Excalibur|Weapon|Legendary|250|30|Only for the worthy - The legendary sword that defeats dragons.
-Hero's Armour|Armour|Legendary|500|30|One of the toughest things ever forged.
+Hero Armour|Armour|Legendary|500|30|One of the toughest things ever forged.
